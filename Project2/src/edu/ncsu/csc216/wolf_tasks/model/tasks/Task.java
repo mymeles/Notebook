@@ -141,10 +141,10 @@ public class Task implements Cloneable {
 	
 	/**
 	 * Returns a copy of the Task.
-	 * If there are no AbstractTaskLists registered with the Task then a CloneNotSupportedException is thrown with the message “Cannot clone.”. 
+	 * If there are no AbstractTaskLists registered with the Task then a CloneNotSupportedException is thrown with the message ï¿½Cannot clone.ï¿½. 
 	 * @return cloned object
 	 */
-	public Object clone() {
+	public Task clone() throws CloneNotSupportedException {
 		return null;
 	}
 	
