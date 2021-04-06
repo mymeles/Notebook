@@ -25,7 +25,7 @@ public class NotebookReader {
 	}
 
 	/**
-	 * A method that reads in a file of NoteBook 
+	 * A method that reads in a file of NoteBook.
 	 * 
 	 * @param file a string that holds a location of a txt file for notebook
 	 * @return returns a Notebook
