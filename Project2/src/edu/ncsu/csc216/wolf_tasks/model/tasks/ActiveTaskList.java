@@ -10,14 +10,15 @@ public class ActiveTaskList extends AbstractTaskList {
 
 	/** name of active task list */
 	public static final String ACTIVE_TASKS_NAME = "Active Tasks";
+
 	
 	/**
 	 * Constructor for the active task list
 	 * @param taskListName name of task list
 	 * @param completedCount number of completed tasks
 	 */
-	public ActiveTaskList(String taskListName, int completedCount) {
-		super(ACTIVE_TASKS_NAME, completedCount);
+	public ActiveTaskList() {
+     	super(ACTIVE_TASKS_NAME, 0);
 	}
 
 	/**
@@ -31,7 +32,7 @@ public class ActiveTaskList extends AbstractTaskList {
 	/**
 	 * Sets the name of the active task list
 	 */
-	public void setTaskListName() {
+	public void setTaskListName(String taskListName) {
 		
 	}
 	
