@@ -21,7 +21,7 @@ public class NotebookReader {
 	 * default constructor for Notebook class
 	 */
 	public NotebookReader() {
-
+		//
 	}
 
 	/**
