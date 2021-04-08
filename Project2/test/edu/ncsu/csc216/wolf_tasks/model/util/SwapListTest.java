@@ -1,91 +1,172 @@
-/**
- * 
- */
 package edu.ncsu.csc216.wolf_tasks.model.util;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-/**
- * A test class for the class SwapList
- * 
- * @author Meles Meles
- * @author Helen Solomon
- *
- */
 public class SwapListTest {
 
-	/**
-	 * Test method for SwapList()
-	 */
 	@Test
 	public void testSwapList() {
-		fail("Not yet implemented");
+		SwapList<String> list = new SwapList<>();
+		assertEquals(0, list.size());
 	}
 
-	/**
-	 * Test method for Add()
-	 */
 	@Test
 	public void testAdd() {
-		fail("Not yet implemented");
+		SwapList<String> list = new SwapList<>();
+		assertEquals(0, list.size());
+		list.add("hello");
+		assertEquals(1, list.size());
+		try {
+			list.add(null);
+		} catch (NullPointerException e) {
+			assertEquals("Cannot add null element.", e.getMessage());
+		}
 	}
 
-	/**
-	 * Test method for remove()
-	 */
 	@Test
 	public void testRemove() {
-		fail("Not yet implemented");
+		SwapList<String> list = new SwapList<>();
+		assertEquals(0, list.size());
+		list.add("hello");
+		assertEquals(1, list.size());
+		list.add("bye");
+		assertEquals(2, list.size());
+		list.add("winner");
+		assertEquals(3, list.size());
+		list.add("loser");
+		assertEquals(4, list.size());
+
+		assertEquals("hello", list.get(0));
+		assertEquals("bye", list.get(1));
+		assertEquals("winner", list.get(2));
+		assertEquals("loser", list.get(3));
+		
+		list.remove(0);
+		assertEquals(3, list.size());
+		assertEquals("bye", list.get(0));
+		list.remove(2);
+		assertEquals(2, list.size());
+		assertEquals("bye", list.get(0));
+		assertEquals("winner", list.get(1));
 	}
 
-	/**
-	 * Test method for moveUp
-	 */
 	@Test
 	public void testMoveUp() {
-		fail("Not yet implemented");
+		SwapList<String> list = new SwapList<>();
+		assertEquals(0, list.size());
+		list.add("hello");
+		assertEquals(1, list.size());
+		list.add("bye");
+		assertEquals(2, list.size());
+		list.add("winner");
+		assertEquals(3, list.size());
+		list.add("loser");
+		assertEquals(4, list.size());
+		
+		list.moveUp(0);
+		assertEquals("hello", list.get(0));
+		assertEquals("bye", list.get(1));
+		assertEquals("winner", list.get(2));
+		assertEquals("loser", list.get(3));
+		
+		list.moveUp(3);
+		assertEquals("hello", list.get(0));
+		assertEquals("bye", list.get(1));
+		assertEquals("loser", list.get(2));
+		assertEquals("winner", list.get(3));
 	}
 
-	/**
-	 * Test method for MoveDown()
-	 */
 	@Test
 	public void testMoveDown() {
-		fail("Not yet implemented");
+		SwapList<String> list = new SwapList<>();
+		assertEquals(0, list.size());
+		list.add("hello");
+		assertEquals(1, list.size());
+		list.add("bye");
+		assertEquals(2, list.size());
+		list.add("winner");
+		assertEquals(3, list.size());
+		list.add("loser");
+		assertEquals(4, list.size());
+		
+		try {
+			list.moveDown(5);
+		} catch (IndexOutOfBoundsException e) {
+			assertEquals("Invalid index.", e.getMessage());
+		}
+
+		list.moveDown(0);
+		assertEquals("bye", list.get(0));
+		assertEquals("hello", list.get(1));
+		assertEquals("winner", list.get(2));
+		assertEquals("loser", list.get(3));
+		
+		list.moveDown(3);
+		assertEquals("bye", list.get(0));
+		assertEquals("hello", list.get(1));
+		assertEquals("winner", list.get(2));
+		assertEquals("loser", list.get(3));
+		
+		list.moveDown(2);
+		assertEquals("bye", list.get(0));
+		assertEquals("hello", list.get(1));
+		assertEquals("loser", list.get(2));
+		assertEquals("winner", list.get(3));
 	}
 
-	/**
-	 * Test method for moveToFront()
-	 */
 	@Test
 	public void testMoveToFront() {
-		fail("Not yet implemented");
+		SwapList<String> list = new SwapList<>();
+		assertEquals(0, list.size());
+		list.add("hello");
+		assertEquals(1, list.size());
+		list.add("bye");
+		assertEquals(2, list.size());
+		list.add("winner");
+		assertEquals(3, list.size());
+		list.add("loser");
+		assertEquals(4, list.size());
+		
+		list.moveToFront(0);
+		assertEquals("hello", list.get(0));
+		assertEquals("bye", list.get(1));
+		assertEquals("winner", list.get(2));
+		assertEquals("loser", list.get(3));
+		
+		list.moveToFront(3);
+		assertEquals("loser", list.get(0));
+		assertEquals("hello", list.get(1));
+		assertEquals("bye", list.get(2));
+		assertEquals("winner", list.get(3));
+		
 	}
 
-	/**
-	 * Test method for moveToBack()
-	 */
 	@Test
 	public void testMoveToBack() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for get()
-	 */
-	@Test
-	public void testGet() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for size()
-	 */
-	@Test
-	public void testSize() {
-		fail("Not yet implemented");
+		SwapList<String> list = new SwapList<>();
+		assertEquals(0, list.size());
+		list.add("hello");
+		assertEquals(1, list.size());
+		list.add("bye");
+		assertEquals(2, list.size());
+		list.add("winner");
+		assertEquals(3, list.size());
+		list.add("loser");
+		assertEquals(4, list.size());
+		
+		list.moveToBack(0);
+		assertEquals("bye", list.get(0));
+		assertEquals("winner", list.get(1));
+		assertEquals("loser", list.get(2));
+		assertEquals("hello", list.get(3));
+		
+		list.moveToBack(3);
+		assertEquals("bye", list.get(0));
+		assertEquals("winner", list.get(1));
+		assertEquals("loser", list.get(2));
+		assertEquals("hello", list.get(3));
 	}
 
 }

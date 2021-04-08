@@ -4,27 +4,15 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-/**
- * A test class for Notebook writer
- * @author Meles Meles
- * @author Helen Solomon
- *
- */
 public class NotebookWriterTest {
 
-	/**
-	 * Test method for Notebook writer
-	 */
 	@Test
 	public void testNotebookWriter() {
 		fail("Not yet implemented");
 	}
 
-	/**
-	 * Test method for WriteNotebookFile
-	 */
 	@Test
-	public void testWriteNoteBookFile() {
+	public void testWriteNotebookFile() {
 		fail("Not yet implemented");
 	}
 

@@ -20,8 +20,8 @@ public abstract class AbstractTaskList {
 
 	/**
 	 * Sets the fields from the parameters and constructs a SwapList for the Tasks.
-	 * An IAE is thrown with the message “Invalid name.” if the taskListName is null
-	 * or empty string. An IAE is thrown with the message “Invalid completed count.”
+	 * An IAE is thrown with the message ï¿½Invalid name.ï¿½ if the taskListName is null
+	 * or empty string. An IAE is thrown with the message ï¿½Invalid completed count.ï¿½
 	 * if the completedCount is less than zero.
 	 * 
 	 * @param taskListName   name of task list
