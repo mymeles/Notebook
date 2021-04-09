@@ -12,11 +12,11 @@ public class TaskList extends AbstractTaskList implements Comparable<TaskList> {
 	/**
 	 * Constructor of a task list using
 	 * 
-	 * @param name name of the task list
-	 * @param num  integer field (?)
+	 * @param taskListName name of the task list
+	 * @param completedCount number of completed tasks in list
 	 */
-	public TaskList(String taskListName, int compeletdCount) {
-		super(taskListName, compeletdCount);
+	public TaskList(String taskListName, int completedCount) {
+		super(taskListName, completedCount);
 	}
 
 	/**
@@ -26,14 +26,20 @@ public class TaskList extends AbstractTaskList implements Comparable<TaskList> {
 	 * @return string array of tasks
 	 */
 	public String[][] getTasksAsArray() {
-		return null;
+		String[][] taskArray = new String[super.getTasks().size()][2];
+		for (int i = 0; i < super.getTasks().size(); i++) {
+			taskArray[i][0] = Integer.toString(i + 1);
+			taskArray[i][1] = super.getTask(i).getTaskName();
+		}
+		return taskArray;
 	}
 
 	/**
 	 * Compares the names of the TaskLists
+	 * @param list list that is compared to other lists (names)
 	 */
 	@Override
-	public int compareTo(TaskList o) {
-		return 0;
+	public int compareTo(TaskList list) {
+		return super.getTaskListName().compareTo(list.getTaskListName());
 	}
 }
