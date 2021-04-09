@@ -28,7 +28,10 @@ public abstract class AbstractTaskList {
 	 * @param completedCount number of completed tasks in list
 	 */
 	public AbstractTaskList(String taskListName, int completedCount) {
-
+		super();
+		setTaskListName(taskListName);
+		setCompeletCount(completedCount);
+	
 	}
 
 	/**
@@ -37,25 +40,43 @@ public abstract class AbstractTaskList {
 	 * @return task list name
 	 */
 	public String getTaskListName() {
-		return "";
+		return taskListName;
 	}
 
 	/**
 	 * Setter for the task list name
 	 * 
 	 * @param taskListName name of the task list
+	 * 
+	 * @throws IllegalArgumentException if the lists name is empty or null. 
 	 */
 	public void setTaskListName(String taskListName) {
-
+		if(taskListName == null || ("").equals(taskListName))
+			throw new IllegalArgumentException("Invalid name.");
+		
+	}
+	
+	/**
+	 * A method that sets the completed count.
+	 * @param count is an integer that represents completed count;
+	 * 
+	 * @throws IllegalArgumentException if the the completed count is less than zero.
+	 */
+	private void setCompeletCount(int count) {
+		if(completedCount < 0) {
+			throw new IllegalArgumentException("Invalid completed count.");
+		} else{
+			this.completedCount = count;
+		}
 	}
 
 	/**
-	 * Returns the list of tasks at the given index
+	 * Returns activetask lists list of tasks 
 	 * 
 	 * @return list of tasks
 	 */
 	public ISwapList<Task> getTasks() {
-		return null;
+		return tasks;
 	}
 
 	/**
@@ -64,7 +85,7 @@ public abstract class AbstractTaskList {
 	 * @return amount of completed tasks
 	 */
 	public int getCompletedCount() {
-		return 0;
+		return completedCount;
 	}
 
 	/**
@@ -72,9 +93,11 @@ public abstract class AbstractTaskList {
 	 * adds itself to the Task (use the keyword this)
 	 * 
 	 * @param task task to add to list
+	 * 
+	 * 
 	 */
 	public void addTask(Task task) {
-
+		this.tasks.add(task);
 	}
 
 	/**
@@ -84,7 +107,7 @@ public abstract class AbstractTaskList {
 	 * @return the removed task
 	 */
 	public Task removeTask(int index) {
-		return null;
+		return tasks.remove(index);
 	}
 
 	/**
@@ -94,7 +117,7 @@ public abstract class AbstractTaskList {
 	 * @return task
 	 */
 	public Task getTask(int index) {
-		return null;
+		return tasks.get(index);
 	}
 
 	/**
@@ -104,7 +127,12 @@ public abstract class AbstractTaskList {
 	 * @param task task that will be set as complete
 	 */
 	public void completeTask(Task task) {
-
+		for(int i = 0; i < tasks.size(); i++) {
+			if(task == tasks.get(i)) {
+				tasks.remove(i);
+				setCompeletCount(completedCount++);
+			}
+		}
 	}
 
 	/**
