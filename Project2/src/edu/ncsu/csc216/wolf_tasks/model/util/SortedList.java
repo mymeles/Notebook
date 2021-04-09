@@ -27,34 +27,27 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	 * @throws NullPointerException     if element is null
 	 * @throws IllegalArgumentException if element cannot be added
 	 */
+	@Override
 	public void add(E element) {
 		if (element == null) {
 			throw new NullPointerException("Cannot add null element");
-		} else if (contains(element)) {
+		}
+
+		if (contains(element)) {
 			throw new IllegalArgumentException("Cannot add duplicate element");
 		}
 
-		ListNode insert = new ListNode(element, null);
+		if (front == null || front.data.compareTo(element) >= 0) {
+			front = new ListNode(element, front);
 
-		if (front == null || front.data.compareTo(element) > 0) {
-			insert.next = front;
-
-		}
-		ListNode current = front;
-		ListNode previous = null;
-
-		while (current != null) {
-			if (current.data.compareTo(element) > 0) {
-				previous.next = insert;
-				insert.next = current;
-
+		} else {
+			ListNode current = front;
+			while (current.next != null && current.next.data.compareTo(element) < 0) {
+				current = current.next;
 			}
-			previous = current;
-			current = current.next;
+			current.next = new ListNode(element, current.next);
 
 		}
-
-		previous.next = insert;
 		size++;
 	}
 
@@ -66,20 +59,11 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	 * @return element at given index
 	 * @throws IndexOutOfBoundsException if the idx is out of bounds for the list
 	 */
+	@Override
 	public E remove(int idx) {
 		checkIndex(idx);
 		E returnElement = null;
-//			if (idx == 0 ) {
-//				if(size == 1) {
-//					returnElement = front.data; // the returned element is the only element in the list 
-//					front = null; // indicating there are no other elements 
-//				}
-//				else {
-//					returnElement = front.data; // the return element is the element at front 
-//					front = front.next; // then the front element is the next element
-//				}
-//			}
-//			
+
 		if (idx == 0) {
 			returnElement = front.data; // the returned element is the only element in the list
 			if (front.next == null) {
@@ -118,8 +102,9 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	 * @param element element to search for
 	 * @return true if element is found
 	 */
+	@Override
 	public boolean contains(E element) {
-		if (element == null) {
+		if (element != null) {
 			ListNode current = front;
 			while (current != null) {
 				if (current.data.equals(element)) {
@@ -138,6 +123,7 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	 * @return element at the given index
 	 * @throws IndexOutOfBoundsException if the idx is out of bounds for the list
 	 */
+	@Override
 	public E get(int idx) {
 		checkIndex(idx);
 		ListNode current = front;
@@ -152,6 +138,7 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	 * 
 	 * @return number of elements in the list
 	 */
+	@Override
 	public int size() {
 		return size;
 	}
