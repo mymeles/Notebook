@@ -4,6 +4,7 @@
 package edu.ncsu.csc216.wolf_tasks.model.tasks;
 
 import edu.ncsu.csc216.wolf_tasks.model.util.ISwapList;
+import edu.ncsu.csc216.wolf_tasks.model.util.SwapList;
 
 /**
  * Task class contains the information about each individual task including the
@@ -29,7 +30,8 @@ public class Task implements Cloneable {
 	private ISwapList<AbstractTaskList> taskLists;
 
 	/**
-	 * Constructor of task with all fields
+	 * Constructs the Task with the given parameters.
+	 * The taskLists field is constructed to an empty SwapList of AbstractTaskLists.
 	 * 
 	 * @param taskName        name of the task
 	 * @param taskDescription description of task
@@ -37,7 +39,11 @@ public class Task implements Cloneable {
 	 * @param active          active state of class
 	 */
 	public Task(String taskName, String taskDescription, boolean recurring, boolean active) {
-
+		setTaskName(taskName);
+		setTaskDescription(taskDescription);
+		setRecurring(recurring);
+		setActive(active);
+		taskLists = new SwapList<AbstractTaskList>();
 	}
 
 	/**
@@ -56,7 +62,10 @@ public class Task implements Cloneable {
 	 * @param taskName name of task
 	 */
 	public void setTaskName(String taskName) {
-		
+		if (taskName == null || taskName.equals("")) {
+			throw new IllegalArgumentException("Incomplete task information.");
+		}
+		this.taskName = taskName;
 	}
 
 	/**
@@ -65,7 +74,7 @@ public class Task implements Cloneable {
 	 * @return description of task
 	 */
 	public String getTaskDescription() {
-		return "";
+		return taskDescription;
 	}
 
 	/**
@@ -75,7 +84,10 @@ public class Task implements Cloneable {
 	 * @param taskDescription description of task
 	 */
 	public void setTaskDescription(String taskDescription) {
-
+		if (taskDescription == null) {
+			throw new IllegalArgumentException("Incomplete task information.");
+		}
+		this.taskDescription = taskDescription;
 	}
 
 	/**
@@ -84,7 +96,7 @@ public class Task implements Cloneable {
 	 * @return true if recurring, else false
 	 */
 	public boolean isRecurring() {
-		return false;
+		return recurring;
 	}
 
 	/**
@@ -93,7 +105,7 @@ public class Task implements Cloneable {
 	 * @param recurring recurring state of task
 	 */
 	public void setRecurring(boolean recurring) {
-
+		this.recurring = recurring;
 	}
 
 	/**
@@ -102,7 +114,7 @@ public class Task implements Cloneable {
 	 * @return active field that was set to true or false
 	 */
 	public boolean isActive() {
-		return false;
+		return active;
 	}
 
 	/**
@@ -111,7 +123,7 @@ public class Task implements Cloneable {
 	 * @param active active state of task
 	 */
 	public void setActive(boolean active) {
-
+		this.active = active;
 	}
 
 	/**
@@ -120,16 +132,32 @@ public class Task implements Cloneable {
 	 * @return task list name
 	 */
 	public String getTaskListName() {
-		return "";
+		if (taskLists == null || taskLists.size() == 0) {
+			return "";
+		} else {
+			return taskLists.get(0).getTaskListName();
+		}
 	}
 
 	/**
+	 * ????????????????????????????????
 	 * Adds task list to notebook
 	 * 
 	 * @param list list to be added to notebook
+	 * @throws IllegalArgumentException
 	 */
 	public void addTaskList(AbstractTaskList list) {
-
+		if (list == null) {
+			throw new IllegalArgumentException("Incomplete task information.");
+		}
+		//check that the list exists within taskLists
+		for (int i = 0; i < taskLists.size(); i++) {
+			if (list.getTaskListName().equals(taskLists.get(i).getTaskListName())) {
+				return;
+			}
+		}
+		//if list doesn't exist in taskLists, add to taskLists
+		taskLists.add(list);
 	}
 	
 	/**
@@ -145,6 +173,11 @@ public class Task implements Cloneable {
 	 * @return cloned object
 	 */
 	public Task clone() throws CloneNotSupportedException {
+		for (int i = 0; i < taskLists.size(); i++) {
+			if (taskLists.get(i).getTask(i).getTaskName().equals(taskName)) {
+				return taskLists.get(i).getTask(i);
+			}
+		}
 		return null;
 	}
 	
