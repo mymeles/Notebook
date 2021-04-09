@@ -3,6 +3,8 @@
  */
 package edu.ncsu.csc216.wolf_tasks.model.tasks;
 
+import java.util.Iterator;
+
 import edu.ncsu.csc216.wolf_tasks.model.util.ISwapList;
 import edu.ncsu.csc216.wolf_tasks.model.util.SwapList;
 
@@ -164,21 +166,30 @@ public class Task implements Cloneable {
 	 * Sets task as complete
 	 */
 	public void completeTask() {
-		
+		if (recurring) {
+			//taskLists.get(0).getTask(0).clone();
+		}
+		taskLists.get(0).completeTask(taskLists.get(0).getTask(0));
 	}
 	
 	/**
 	 * Returns a copy of the Task.
-	 * If there are no AbstractTaskLists registered with the Task then a CloneNotSupportedException is thrown with the message �Cannot clone.�. 
+	 * If there are no AbstractTaskLists registered with the Task then a CloneNotSupportedException is thrown with the message "Cannot clone.". 
 	 * @return cloned object
 	 */
 	public Task clone() throws CloneNotSupportedException {
 		for (int i = 0; i < taskLists.size(); i++) {
 			if (taskLists.get(i).getTask(i).getTaskName().equals(taskName)) {
-				return taskLists.get(i).getTask(i);
-			} 
+				
+				//?????????????????????????????
+				// need to copy taskLists field??????
+				//SwapList<AbstractTaskList> list = new SwapList<AbstractTaskList>();
+				
+				Task clonedTask = new Task(taskName, taskDescription, recurring, active);
+				return clonedTask;
+			}
 		}
-		return null;
+		throw new CloneNotSupportedException("Cannot clone.");
 	}
 	
 	/**
