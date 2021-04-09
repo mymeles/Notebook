@@ -176,7 +176,7 @@ public class Task implements Cloneable {
 		for (int i = 0; i < taskLists.size(); i++) {
 			if (taskLists.get(i).getTask(i).getTaskName().equals(taskName)) {
 				return taskLists.get(i).getTask(i);
-			}
+			} 
 		}
 		return null;
 	}
