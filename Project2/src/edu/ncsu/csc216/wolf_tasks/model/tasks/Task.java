@@ -32,8 +32,8 @@ public class Task implements Cloneable {
 	private ISwapList<AbstractTaskList> taskLists;
 
 	/**
-	 * Constructs the Task with the given parameters.
-	 * The taskLists field is constructed to an empty SwapList of AbstractTaskLists.
+	 * Constructs the Task with the given parameters. The taskLists field is
+	 * constructed to an empty SwapList of AbstractTaskLists.
 	 * 
 	 * @param taskName        name of the task
 	 * @param taskDescription description of task
@@ -58,8 +58,8 @@ public class Task implements Cloneable {
 	}
 
 	/**
-	 * Checks for a valid task name and sets it to field
-	 * Throws an IAE if null or empty string with message "Incomplete task information."
+	 * Checks for a valid task name and sets it to field Throws an IAE if null or
+	 * empty string with message "Incomplete task information."
 	 * 
 	 * @param taskName name of task
 	 */
@@ -80,8 +80,8 @@ public class Task implements Cloneable {
 	}
 
 	/**
-	 * Private helper method that checks for a valid task description.
-	 * Throws an IAE if null with message "Incomplete task information."
+	 * Private helper method that checks for a valid task description. Throws an IAE
+	 * if null with message "Incomplete task information."
 	 * 
 	 * @param taskDescription description of task
 	 */
@@ -142,8 +142,7 @@ public class Task implements Cloneable {
 	}
 
 	/**
-	 * ????????????????????????????????
-	 * Adds task list to notebook
+	 * ???????????????????????????????? Adds task list to notebook
 	 * 
 	 * @param list list to be added to notebook
 	 * @throws IllegalArgumentException
@@ -152,54 +151,69 @@ public class Task implements Cloneable {
 		if (list == null) {
 			throw new IllegalArgumentException("Incomplete task information.");
 		}
-		//check that the list exists within taskLists
+		// check that the list exists within taskLists
 		for (int i = 0; i < taskLists.size(); i++) {
 			if (list.getTaskListName().equals(taskLists.get(i).getTaskListName())) {
 				return;
 			}
 		}
-		//if list doesn't exist in taskLists, add to taskLists
+		// if list doesn't exist in taskLists, add to taskLists
 		taskLists.add(list);
 	}
-	
+
 	/**
 	 * Sets task as complete
+	 * 
+	 * @throws CloneNotSupportedException
 	 */
 	public void completeTask() {
-		if (recurring) {
-			//taskLists.get(0).getTask(0).clone();
+
+		for (int i = 0; i < taskLists.size(); i++) {
+			if(taskLists.get(i).getTasks().get(i).getTaskName().equals(taskName)){
+				taskLists.get(i).completeTask(taskLists.get(i).getTask(i));
+				break;
+			}
 		}
-		taskLists.get(0).completeTask(taskLists.get(0).getTask(0));
+		if (recurring) {
+			try {
+				for (int i = 0; i < taskLists.size(); i++) {
+					taskLists.get(i).addTask(clone());
+				}
+			} catch (CloneNotSupportedException e) {
+				//
+			}
+		}
 	}
-	
+
 	/**
-	 * Returns a copy of the Task.
-	 * If there are no AbstractTaskLists registered with the Task then a CloneNotSupportedException is thrown with the message "Cannot clone.". 
+	 * Returns a copy of the Task. If there are no AbstractTaskLists registered with
+	 * the Task then a CloneNotSupportedException is thrown with the message "Cannot
+	 * clone.".
+	 * 
 	 * @return cloned object
 	 */
 	public Task clone() throws CloneNotSupportedException {
 		for (int i = 0; i < taskLists.size(); i++) {
 			if (taskLists.get(i).getTask(i).getTaskName().equals(taskName)) {
-				
-				//?????????????????????????????
+
+				// ?????????????????????????????
 				// need to copy taskLists field??????
-				//SwapList<AbstractTaskList> list = new SwapList<AbstractTaskList>();
-				
+				// SwapList<AbstractTaskList> list = new SwapList<AbstractTaskList>();
+
 				Task clonedTask = new Task(taskName, taskDescription, recurring, active);
 				return clonedTask;
 			}
 		}
 		throw new CloneNotSupportedException("Cannot clone.");
 	}
-	
+
 	/**
 	 * Returns a string representation of the Task for printing to a file.
+	 * 
 	 * @return fields of task in string format
 	 */
 	public String toString() {
 		return "";
 	}
-	
-	
 
 }

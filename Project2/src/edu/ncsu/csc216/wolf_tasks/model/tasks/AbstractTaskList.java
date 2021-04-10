@@ -1,6 +1,7 @@
 package edu.ncsu.csc216.wolf_tasks.model.tasks;
 
 import edu.ncsu.csc216.wolf_tasks.model.util.ISwapList;
+import edu.ncsu.csc216.wolf_tasks.model.util.SwapList;
 
 /**
  * Class for the list of active tasks
@@ -31,6 +32,7 @@ public abstract class AbstractTaskList {
 		super();
 		setTaskListName(taskListName);
 		setCompeletCount(completedCount);
+		tasks = new SwapList<Task>();
 	
 	}
 
@@ -51,8 +53,12 @@ public abstract class AbstractTaskList {
 	 * @throws IllegalArgumentException if the lists name is empty or null. 
 	 */
 	public void setTaskListName(String taskListName) {
-		if(taskListName == null || ("").equals(taskListName))
+		if(taskListName == null || ("").equals(taskListName)) {
 			throw new IllegalArgumentException("Invalid name.");
+		}
+		else {
+			this.taskListName = taskListName;
+		}
 		
 	}
 	

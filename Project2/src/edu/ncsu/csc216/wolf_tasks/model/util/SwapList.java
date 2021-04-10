@@ -118,11 +118,11 @@ public class SwapList<E> implements ISwapList<E>{
 			return;
 		}
 		//store value of element at back of current element
-		E temp = itemList.get(idx + 1);
+		E temp = itemList.get(idx + 1); // list [idx +1]
 		//set the element at idx+1 to the current element
-		itemList.set(idx + 1, itemList.get(idx));
+		itemList.set(idx + 1, itemList.get(idx)); // set(idx+1, list[idx])
 		//set the current element value to the one that was in front
-		itemList.set(idx, temp);
+		itemList.set(idx, temp); // set(idx, temp)
 	}
 
 	/**
