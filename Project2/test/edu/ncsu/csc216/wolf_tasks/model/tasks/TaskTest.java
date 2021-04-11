@@ -68,12 +68,33 @@ public class TaskTest {
 
 	@Test
 	public void testClone() {
-		fail("Not yet implemented");
+		Task task = new Task("name", "description", true, false);
+		TaskList list = new TaskList("list", 0);
+		//???????
+		list.addTask(task);
+		task.addTaskList(list);
+		assertEquals(1, list.getTasks().size());
+		//???????
+		task.completeTask();
+		assertEquals(1, list.getCompletedCount());
+		assertEquals(1, list.getTasks().size()); //size should still be 1 because task is recurring
 	}
 
 	@Test
 	public void testToString() {
-		fail("Not yet implemented");
+		Task task1 = new Task("name", "description", false, false);
+		assertEquals("* name\n" + "description", task1.toString());
+		
+		Task task2 = new Task("name", "description", true, false);
+		assertEquals("* name,recurring\n" + "description", task2.toString());
+
+		Task task3 = new Task("name", "description", false, true);
+		assertEquals("* name,active\n" + "description", task3.toString());
+
+		Task task4 = new Task("name", "description", true, true);
+		assertEquals("* name,recurring,active\n" + "description", task4.toString());
+
+
 	}
 
 }
