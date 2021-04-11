@@ -184,7 +184,6 @@ public class Task implements Cloneable {
 			}
 		}
 	}
-
 	/**
 	 * Returns a copy of the Task. If there are no AbstractTaskLists registered with
 	 * the Task then a CloneNotSupportedException is thrown with the message "Cannot
@@ -195,12 +194,17 @@ public class Task implements Cloneable {
 	public Task clone() throws CloneNotSupportedException {
 		for (int i = 0; i < taskLists.size(); i++) {
 			if (taskLists.get(i).getTask(i).getTaskName().equals(taskName)) {
-
-				// ?????????????????????????????
-				// need to copy taskLists field??????
-				// SwapList<AbstractTaskList> list = new SwapList<AbstractTaskList>();
-
+				//create new swapList
+				ISwapList<AbstractTaskList> lists = new SwapList<AbstractTaskList>();
+				//store the lists in a new swapList
+				lists = taskLists;
+				//create duplicate task from everything given
 				Task clonedTask = new Task(taskName, taskDescription, recurring, active);
+				//add each of the stored lists into the swaplist created in the new Task
+				for (int j = 0; j < lists.size(); j++) {
+					taskLists.add(lists.get(j));
+				}
+				//return the cloned task
 				return clonedTask;
 			}
 		}
@@ -213,7 +217,18 @@ public class Task implements Cloneable {
 	 * @return fields of task in string format
 	 */
 	public String toString() {
-		return "";
+		if (isActive() && !isRecurring()) {
+			return "* " + getTaskName() + ",active\n" + getTaskDescription();
+		} 
+		else if (isRecurring() && !isActive()) {
+			return "* " + getTaskName() + ",recurring\n" + getTaskDescription();
+		} 
+		else if (isRecurring() && isActive()) {
+			return "* " + getTaskName() + ",recurring,active\n" + getTaskDescription();		
+		} 
+		else {
+			return "* " + getTaskName() + "\n" + getTaskDescription();
+		}
 	}
 
 }

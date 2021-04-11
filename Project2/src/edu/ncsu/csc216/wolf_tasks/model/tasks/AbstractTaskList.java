@@ -31,7 +31,7 @@ public abstract class AbstractTaskList {
 	public AbstractTaskList(String taskListName, int completedCount) {
 		super();
 		setTaskListName(taskListName);
-		setCompeletCount(completedCount);
+		setCompletedCount(completedCount);
 		tasks = new SwapList<Task>();
 	
 	}
@@ -68,8 +68,8 @@ public abstract class AbstractTaskList {
 	 * 
 	 * @throws IllegalArgumentException if the the completed count is less than zero.
 	 */
-	private void setCompeletCount(int count) {
-		if(completedCount < 0) {
+	private void setCompletedCount(int count) {
+		if(count < 0) {
 			throw new IllegalArgumentException("Invalid completed count.");
 		} else{
 			this.completedCount = count;
@@ -136,7 +136,7 @@ public abstract class AbstractTaskList {
 		for(int i = 0; i < tasks.size(); i++) {
 			if(task == tasks.get(i)) {
 				tasks.remove(i);
-				setCompeletCount(completedCount++);
+				setCompletedCount(completedCount++);
 			}
 		}
 	}
