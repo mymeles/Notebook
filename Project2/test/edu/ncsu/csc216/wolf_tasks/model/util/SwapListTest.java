@@ -23,6 +23,20 @@ public class SwapListTest {
 		} catch (NullPointerException e) {
 			assertEquals("Cannot add null element.", e.getMessage());
 		}
+		
+		list.add("hello");
+		list.add("hello");
+		list.add("hello");
+		list.add("hello");
+		list.add("hello");
+		list.add("hello");
+		list.add("hello");
+		list.add("hello");
+		list.add("hello");
+		//try to add over capacity
+		list.add("hello");
+		assertEquals(11, list.size());
+
 	}
 
 	@Test
