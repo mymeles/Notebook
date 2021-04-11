@@ -149,12 +149,20 @@ public class SwapListTest {
 		assertEquals(0, list.size());
 		list.add("hello");
 		assertEquals(1, list.size());
+		assertEquals("hello", list.get(0));
+
 		list.add("bye");
 		assertEquals(2, list.size());
+		assertEquals("bye", list.get(1));
+
 		list.add("winner");
 		assertEquals(3, list.size());
+		assertEquals("winner", list.get(2));
+
 		list.add("loser");
 		assertEquals(4, list.size());
+		assertEquals("loser", list.get(3));
+
 		
 		list.moveToBack(0);
 		assertEquals("bye", list.get(0));

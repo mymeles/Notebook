@@ -1,7 +1,5 @@
 package edu.ncsu.csc216.wolf_tasks.model.util;
 
-import java.util.ArrayList;
-
 /**
  * A cusstom Array List that implements an interface called ISwapList
  * @author Meles Meles
@@ -15,8 +13,7 @@ public class SwapList<E> implements ISwapList<E>{
 	private int INITIAL_CAPACITY = 10;
 
 	/** Array used to store values within the Array List */
-	//private E [] list;
-	private ArrayList<E> itemList;
+	private E [] list;
 
 	/** The current size of the array */
 	private int size;
@@ -24,8 +21,10 @@ public class SwapList<E> implements ISwapList<E>{
 	/**
 	 * Constructs a new empty generic list with a size of zero when called
 	 */
+	@SuppressWarnings("unchecked")
 	public SwapList() {
-		itemList = new ArrayList<E>(INITIAL_CAPACITY);
+		list = (E[]) new Object[INITIAL_CAPACITY];
+		size = 0;
 	}
 
 	/**
@@ -34,11 +33,20 @@ public class SwapList<E> implements ISwapList<E>{
 	 * @throws NullPointerException if element is null
 	 */
 	public void add(E element) {
+    	if (size == list.length) {
+    		checkCapacity(size);
+    	}
+
 		if (element == null) {
 			throw new NullPointerException("Cannot add null element.");
 		}
-		this.checkCapacity(size);
-		itemList.add(element);
+		
+    	if (size == 0) {
+    		list[0] = element;
+    	} else {
+    		list[size] = element;
+    	}
+
 		size++;
 	}
 
@@ -47,8 +55,13 @@ public class SwapList<E> implements ISwapList<E>{
 	 * 
 	 * @param idx is an integer
 	 */
+	@SuppressWarnings("unchecked")
 	private void checkCapacity(int size) {
-		itemList.ensureCapacity(size);
+		E[] bigList = (E[]) new Object[list.length * 2];
+		for (int i = 0; i < list.length; i++) {
+			bigList[i] = list[i];
+		}
+		list = bigList;
 	}
 
 
@@ -64,8 +77,11 @@ public class SwapList<E> implements ISwapList<E>{
 		//check that index is valid, throws exception if not
 		checkIndex(idx);
 		//remove item from list
-		E deleted = itemList.get(idx);
-		itemList.remove(idx);
+		E deleted = list[idx];
+		for (int i = idx; i < size - 1; i++) {
+			list[i] = list[i + 1];
+		}
+		list[size - 1] = null;
 		size--;
 		//return the deleted one
 		return deleted;
@@ -96,11 +112,11 @@ public class SwapList<E> implements ISwapList<E>{
 			return;
 		}
 		//store value of element at front of current element
-		E temp = itemList.get(idx - 1);
+		E temp = list[idx - 1];
 		//set the element at idx-1 to the current element
-		itemList.set(idx - 1, itemList.get(idx));
+		list[idx - 1] = list[idx];
 		//set the current element value to the one that was in front
-		itemList.set(idx, temp);
+		list[idx] = temp;
 	}
 
 
@@ -114,15 +130,15 @@ public class SwapList<E> implements ISwapList<E>{
 	public void moveDown(int idx) {
 		checkIndex(idx);
 		//if idx is at end, don't change list
-		if (idx == itemList.size() - 1) {
+		if (idx == size - 1) {
 			return;
 		}
 		//store value of element at back of current element
-		E temp = itemList.get(idx + 1); // list [idx +1]
+		E temp = list[idx + 1]; // list [idx +1]
 		//set the element at idx+1 to the current element
-		itemList.set(idx + 1, itemList.get(idx)); // set(idx+1, list[idx])
+		list[idx + 1] = list[idx]; // set(idx+1, list[idx])
 		//set the current element value to the one that was in front
-		itemList.set(idx, temp); // set(idx, temp)
+		list[idx] = temp; // set(idx, temp)
 	}
 
 	/**
@@ -139,10 +155,12 @@ public class SwapList<E> implements ISwapList<E>{
 			return;
 		}
 		//store value of element at front of list
-		E temp = itemList.get(idx);
-		itemList.remove(idx);
-		//set the element at idx-1 to the current element
-		itemList.add(0, temp);
+		E temp = list[idx];
+		for (int i = idx; i > 0; i--) {
+			list[i] = list[i-1];			
+		}
+		//set current element to the first position
+		list[0] = temp;
 	}
 	
 	/**
@@ -154,13 +172,17 @@ public class SwapList<E> implements ISwapList<E>{
 	 */
 	public void moveToBack(int idx) {
 		checkIndex(idx);
-		//if idx is at front, don't change list
-		if (idx == itemList.size() - 1) {
+		//if idx is at end, don't change list
+		if (idx == size - 1) {
 			return;
 		}
-		E temp = itemList.get(idx);
-		itemList.remove(idx);
-		itemList.add(itemList.size(), temp);
+		//store value of element at back of list
+		E temp = list[idx];
+		for (int i = 0; i < size; i++) {
+			list[i] = list[i+1];
+		}
+		//set current element to the last position
+		list[size - 1] = temp;
 	}
 	
 	/**
@@ -172,7 +194,7 @@ public class SwapList<E> implements ISwapList<E>{
 	 */
 	public E get(int idx) {
 		checkIndex(idx);
-		return itemList.get(idx);
+		return list[idx];
 	}
 	
 	/**
