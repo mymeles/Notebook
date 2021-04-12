@@ -104,7 +104,7 @@ public abstract class AbstractTaskList {
 	 */
 	public void addTask(Task task) {
 		this.tasks.add(task);
-	}
+		}
 
 	/**
 	 * Removes the Task from the list of tasks and returns the removed task
@@ -135,8 +135,8 @@ public abstract class AbstractTaskList {
 	public void completeTask(Task task) {
 		for(int i = 0; i < tasks.size(); i++) {
 			if(task == tasks.get(i)) {
-				tasks.remove(i);
-				setCompletedCount(completedCount++);
+				this.tasks.remove(i);
+				setCompletedCount(completedCount++); 
 			}
 		}
 	}

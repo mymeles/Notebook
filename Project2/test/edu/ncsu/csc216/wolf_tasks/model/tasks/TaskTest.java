@@ -68,7 +68,7 @@ public class TaskTest {
 
 	@Test
 	public void testClone() {
-		Task task = new Task("name", "description", true, false);
+		Task task = new Task("CSC 126", "description", true, false);
 		TaskList list = new TaskList("list", 0);
 		//???????
 		list.addTask(task);

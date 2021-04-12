@@ -9,6 +9,7 @@ public class ActiveTaskListTest {
 	@Test
 	public void testSetTaskListName() {
 		AbstractTaskList active = new TaskList("csc 126", 0);
+		AbstractTaskList active1 = new ActiveTaskList();
 		active.setTaskListName("hfhfhf");
 		Task task1 = new Task("HomeWork", "Do it today", false, true);
 		task1.addTaskList(active);
@@ -18,7 +19,7 @@ public class ActiveTaskListTest {
 		
 		
 		System.out.println(task1.getTaskListName());
-		System.out.println(active.getTask(0).getTaskName());
+		System.out.println(active1.getTaskListName()); 
 		
 	}
 

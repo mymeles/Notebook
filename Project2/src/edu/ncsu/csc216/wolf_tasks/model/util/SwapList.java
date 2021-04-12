@@ -99,6 +99,7 @@ public class SwapList<E> implements ISwapList<E>{
 	}
 
 	/**
+	 * 
 	 * Moves the element at the given index to index-1.  If the element is
 	 * already at the front of the list, the list is not changed.
 	 * @param idx index of element to move up
