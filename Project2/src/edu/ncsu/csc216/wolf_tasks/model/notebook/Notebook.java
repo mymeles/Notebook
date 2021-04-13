@@ -83,7 +83,7 @@ public class Notebook {
 	 * @return a boolean
 	 */
 	public boolean isChanged() {
-		return true;
+		return isChanged;
 	}
 
 	/**
@@ -131,7 +131,11 @@ public class Notebook {
 	 * @return an array of strings
 	 */
 	public String[] getTaskListsNames() {
-		return null;
+		String[] lists = new String[taskLists.size()];
+		for (int i = 0; i < taskLists.size(); i++) {
+			lists[i] = taskLists.get(i).getTaskListName();
+		}
+		return lists;
 	}
 
 	/**
@@ -176,7 +180,7 @@ public class Notebook {
 		if (taskListName == null || taskListName.equals("") || taskListName.toLowerCase().equals(ActiveTaskList.ACTIVE_TASKS_NAME.toLowerCase())) {
 			throw new IllegalArgumentException("Invalid name.");
 		}
-		if (currentTaskList.getTaskListName().toLowerCase().equals(ActiveTaskList.ACTIVE_TASKS_NAME.toLowerCase())) {
+		if (currentTaskList.getTaskListName().compareToIgnoreCase(ActiveTaskList.ACTIVE_TASKS_NAME) == 0) {
 			throw new IllegalArgumentException("Invalid name.");
 		}
 		isDuplicate(taskListName);
@@ -189,16 +193,16 @@ public class Notebook {
 	 * activeTaskList and also the boolean isChaged is updated to true.
 	 */
 	public void removeTaskList() {
-		if (currentTaskList.getTaskListName().toLowerCase().equals(ActiveTaskList.ACTIVE_TASKS_NAME.toLowerCase())) {
+		if (currentTaskList.getTaskListName().compareToIgnoreCase(ActiveTaskList.ACTIVE_TASKS_NAME) == 0) {
 			throw new IllegalArgumentException("The Active Tasks list may not be deleted.");
 		}
 		//?????????
 		for (int i = 0; i < taskLists.size(); i++) {
 			if (currentTaskList.getTaskListName().equals(taskLists.get(i).getTaskListName())) {
-				currentTaskList = taskLists.remove(i);
+				taskLists.remove(i);
 			}
 		}
-		
+		setCurrentTaskList(ActiveTaskList.ACTIVE_TASKS_NAME);
 		setChanged(true);
 	}
 
