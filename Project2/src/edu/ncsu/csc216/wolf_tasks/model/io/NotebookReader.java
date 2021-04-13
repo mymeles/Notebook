@@ -45,7 +45,7 @@ public class NotebookReader {
 			Scanner scanBook = new Scanner(contents);
 			//set the name of the notebook
 			scanBook.useDelimiter("\\r?\\n?[!]");
-			String bookName = scanBook.nextLine().trim();
+			String bookName = scanBook.nextLine().substring(2);
 			nb = new Notebook(bookName);
 			
 			//split string into task list tokens
@@ -55,14 +55,14 @@ public class NotebookReader {
 				//process this group of task lists
 				String line = scanBook.next().trim();
 				list = processTaskList(line);
-				nb.addTaskList(list);
+				if (list != null) {
+					nb.addTaskList(list);
+				}
 			}
 			scanBook.close();
 		} catch (FileNotFoundException e) {
 			throw new IllegalArgumentException("File not found");
-		} catch (IllegalArgumentException e) {
-			return nb;
-		}	
+		}
 		//if all is successful, return the lists
 		return nb;
 	}
@@ -77,29 +77,42 @@ public class NotebookReader {
 	private static TaskList processTaskList(String taskList) {
 		Task task = null;
 		TaskList list = null;
-		//scan the task list
-		Scanner scanList = new Scanner(taskList);
-		scanList.useDelimiter(",");
-		//get the name of the task list
-		String listName = scanList.nextLine().trim();
-		Scanner scnrName = new Scanner(listName);
-		//split into task list name and completed count
-		String name = scnrName.next().trim();
-		int count = 0;
-		if (scnrName.hasNextInt()) {
-			count = scnrName.nextInt();
+		try {
+			//scan the task list
+			Scanner scanList = new Scanner(taskList);
+			//get the name of the task list
+			String listName = scanList.nextLine().trim();
+			Scanner scnrName = new Scanner(listName);
+			scnrName.useDelimiter(",");
+			//split into task list name and completed count
+			String name = scnrName.next().trim();
+			int count = 0;
+			if (scnrName.hasNextInt()) {
+				count = scnrName.nextInt();
+			} else {
+				scnrName.close();
+				scanList.close();
+				return list;
+			}
+			scnrName.close();
+			//construct a task list
+			list = new TaskList(name, count);
+			//get the task tokens
+			scanList.useDelimiter("\\r?\\n?[*]");
+			while (scanList.hasNext()) {
+				String taskData = scanList.next().trim();
+				task = processTask(list, taskData);
+				if (task != null) {
+					list.addTask(task);
+				} else {
+					scanList.close();
+					return null;
+				}
+			}
+			scanList.close();
+		} catch (IllegalArgumentException e) {
+			return null;
 		}
-		scnrName.close();
-		//construct a task list
-		list = new TaskList(name, count);
-		//get the task tokens
-		scanList.useDelimiter("\\r?\\n?[*]");
-		while (scanList.hasNext()) {
-			String taskData = scanList.next().trim();
-			task = processTask(list, taskData);
-			list.addTask(task);
-		}
-		scanList.close();
 		return list;
 	}
 
@@ -121,6 +134,11 @@ public class NotebookReader {
 		Scanner scanDetails = new Scanner(taskDetails);
 		scanDetails.useDelimiter(",");
 		String name = scanDetails.next().trim();
+		if (name.equals("active") || name.equals("recurring")) {
+			scanDetails.close();
+			scan.close();
+			return null;
+		}
 		String state = "";
 		
 		while (scanDetails.hasNext()) {
