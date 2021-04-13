@@ -53,7 +53,7 @@ public abstract class AbstractTaskList {
 	 * @throws IllegalArgumentException if the lists name is empty or null. 
 	 */
 	public void setTaskListName(String taskListName) {
-		if(taskListName == null || ("").equals(taskListName)) {
+		if(taskListName == null || "".equals(taskListName)) {
 			throw new IllegalArgumentException("Invalid name.");
 		}
 		else {

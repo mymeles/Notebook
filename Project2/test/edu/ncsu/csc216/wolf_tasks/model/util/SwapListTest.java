@@ -4,14 +4,25 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/**
+ * Tests the SwapList class
+ * @author Helen Solomon
+ * @author Meles Meles
+ */
 public class SwapListTest {
 
+	/**
+	 * Tests the constructor
+	 */
 	@Test
 	public void testSwapList() {
 		SwapList<String> list = new SwapList<>();
 		assertEquals(0, list.size());
 	}
 
+	/**
+	 * Tests the add() method
+	 */
 	@Test
 	public void testAdd() {
 		SwapList<String> list = new SwapList<>();
@@ -39,6 +50,9 @@ public class SwapListTest {
 
 	}
 
+	/**
+	 * Tests the remove() method
+	 */
 	@Test
 	public void testRemove() {
 		SwapList<String> list = new SwapList<>();
@@ -66,6 +80,9 @@ public class SwapListTest {
 		assertEquals("winner", list.get(1));
 	}
 
+	/**
+	 * Tests the moveUp() method
+	 */
 	@Test
 	public void testMoveUp() {
 		SwapList<String> list = new SwapList<>();
@@ -92,6 +109,9 @@ public class SwapListTest {
 		assertEquals("winner", list.get(3));
 	}
 
+	/**
+	 * Tests the moveDown() method
+	 */
 	@Test
 	public void testMoveDown() {
 		SwapList<String> list = new SwapList<>();
@@ -130,6 +150,9 @@ public class SwapListTest {
 		assertEquals("winner", list.get(3));
 	}
 
+	/**
+	 * Tests the moveToFront() method
+	 */
 	@Test
 	public void testMoveToFront() {
 		SwapList<String> list = new SwapList<>();
@@ -157,6 +180,9 @@ public class SwapListTest {
 		
 	}
 
+	/**
+	 * Tests the moveToBack() method
+	 */
 	@Test
 	public void testMoveToBack() {
 		SwapList<String> list = new SwapList<>();

@@ -1,7 +1,6 @@
 package edu.ncsu.csc216.wolf_tasks.model.util;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
@@ -18,7 +17,7 @@ public class SortedListTest {
 		assertEquals(2, (int) (int1.get(0)));
 		assertEquals(1, int1.size());
 		int1.add(1);
-		;
+		
 		assertEquals(1, (int) (int1.get(0)));
 		assertEquals(2, (int) (int1.get(1)));
 		assertEquals(2, int1.size());
@@ -54,7 +53,7 @@ public class SortedListTest {
 		assertEquals(2, (int) (int1.get(0)));
 		assertEquals(1, int1.size());
 		int1.add(1);
-		;
+		
 		assertEquals(1, (int) (int1.get(0)));
 		assertEquals(2, (int) (int1.get(1)));
 		assertEquals(2, int1.size());

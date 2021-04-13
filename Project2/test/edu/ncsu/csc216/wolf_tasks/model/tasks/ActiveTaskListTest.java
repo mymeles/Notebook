@@ -80,29 +80,29 @@ public class ActiveTaskListTest {
 
 	@Test
 	public void testClearTasks() {
-//		ActiveTaskList active1 = new ActiveTaskList();
-//		assertEquals("Active Tasks", active1.getTaskListName());
-//		assertEquals(0, active1.getCompletedCount());
-//
-//		
-//		Task task1 = new Task("HomeWork", "Do it today", false, true);
-//		Task task2 = new Task("HomeWork1", "Do it today", false, true);
-//		Task task3 = new Task("HomeWork2", "Do it today", false, true);
-//		Task task4 = new Task("HomeWork3", "Do it today", false, true);
-//
-//		active1.addTask(task4);
-//		active1.addTask(task3);
-//		active1.addTask(task2);
-//		active1.addTask(task1);
-//		
-//		task1.addTaskList(active1);
-//		task2.addTaskList(active1);
-//		task3.addTaskList(active1);
-//		task4.addTaskList(active1);
-//		
-//		assertEquals(4, active1.getTasksAsArray().length);
-//		active1.clearTasks();
-//		assertEquals(0, active1.getTasksAsArray().length);
+		ActiveTaskList active1 = new ActiveTaskList();
+		assertEquals("Active Tasks", active1.getTaskListName());
+		assertEquals(0, active1.getCompletedCount());
+
+		
+		Task task1 = new Task("HomeWork", "Do it today", false, true);
+		Task task2 = new Task("HomeWork1", "Do it today", false, true);
+		Task task3 = new Task("HomeWork2", "Do it today", false, true);
+		Task task4 = new Task("HomeWork3", "Do it today", false, true);
+
+		active1.addTask(task4);
+		active1.addTask(task3);
+		active1.addTask(task2);
+		active1.addTask(task1);
+		
+		task1.addTaskList(active1);
+		task2.addTaskList(active1);
+		task3.addTaskList(active1);
+		task4.addTaskList(active1);
+		
+		assertEquals(4, active1.getTasksAsArray().length);
+		active1.clearTasks();
+		assertEquals(0, active1.getTasksAsArray().length);
 	}
 
 }

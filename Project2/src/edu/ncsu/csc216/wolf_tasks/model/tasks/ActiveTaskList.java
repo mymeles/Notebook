@@ -1,7 +1,5 @@
 package edu.ncsu.csc216.wolf_tasks.model.tasks;
 
-import edu.ncsu.csc216.wolf_tasks.model.util.ISwapList;
-
 /**
  * Class for the list of active tasks
  * 
@@ -72,7 +70,9 @@ public class ActiveTaskList extends AbstractTaskList {
 	 * Clears the ActiveTaskList of all Tasks
 	 */
 	public void clearTasks() {
-		for (int i = super.getTasks().size() - 1; i <= 0; i--) {
+		//store the original size so that we can reach all tasks in listS
+		int size = super.getTasks().size();
+		for (int i = size - 1; i >= 0; i--) {
 			super.getTasks().remove(i);
 		}
 	}
