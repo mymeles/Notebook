@@ -70,16 +70,22 @@ public class TaskTest {
 	public void testClone() {
 		Task task = new Task("CSC 126", "description", true, false);
 		TaskList list = new TaskList("list", 0);
+		
+		Task task2 = new Task("CSC126", "description", true, false);
+		
 		//???????
 		list.addTask(task);
+		list.addTask(task2);
 		task.addTaskList(list);
-		assertEquals(1, list.getTasks().size());
+		task2.addTaskList(list);
+		assertEquals(2, list.getTasks().size());
 		//???????
 		task.completeTask();
-		assertEquals(1, list.getCompletedCount());
-		assertEquals(1, list.getTasks().size()); //size should still be 1 because task is recurring
+		task2.completeTask();
+		assertEquals(2, list.getCompletedCount());
+		assertEquals(2, list.getTasks().size()); //size should still be 1 because task is recurring
 	}
-
+ 
 	@Test
 	public void testToString() {
 		Task task1 = new Task("name", "description", false, false);

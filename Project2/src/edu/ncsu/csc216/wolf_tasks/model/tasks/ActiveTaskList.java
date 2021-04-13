@@ -60,7 +60,7 @@ public class ActiveTaskList extends AbstractTaskList {
 	 * @return 2D array of tasks in list
 	 */
 	public String[][] getTasksAsArray() {
-		String[][] taskArray = new String[super.getTasks().size()][2];
+		String[][] taskArray = new String[super.getTasks().size()][2]; 
 		for (int i = 0; i < super.getTasks().size(); i++) {
 			taskArray[i][0] = super.getTasks().get(i).getTaskListName();
 			taskArray[i][1] = super.getTasks().get(i).getTaskName();
@@ -72,10 +72,9 @@ public class ActiveTaskList extends AbstractTaskList {
 	 * Clears the ActiveTaskList of all Tasks
 	 */
 	public void clearTasks() {
-
 		for (int i = super.getTasks().size() - 1; i <= 0; i--) {
 			super.getTasks().remove(i);
 		}
 	}
-
+ 
 }
