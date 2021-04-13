@@ -136,9 +136,9 @@ public abstract class AbstractTaskList {
 		for(int i = 0; i < tasks.size(); i++) {
 			if(task == tasks.get(i)) {
 				this.tasks.remove(i);
-				setCompletedCount(completedCount++); 
+				completedCount++; 
 			}
-		}
+		} 
 	}
 
 	/**
