@@ -96,7 +96,9 @@ public abstract class AbstractTaskList {
 
 	/**
 	 * Adds the Task to the end of the list. The current instance of the TaskList
-	 * adds itself to the Task (use the keyword this)
+	 * adds itself to the Task (use the keyword this).
+	 * When a Task is added to a TaskList the TaskList will add itself to the Task via the addTaskList() method.
+
 	 * 
 	 * @param task task to add to list
 	 * 
@@ -104,7 +106,9 @@ public abstract class AbstractTaskList {
 	 */
 	public void addTask(Task task) {
 		this.tasks.add(task);
-		}
+		//add list to task
+		task.addTaskList(this);
+	}
 
 	/**
 	 * Removes the Task from the list of tasks and returns the removed task
