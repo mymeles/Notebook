@@ -2,11 +2,13 @@ package edu.ncsu.csc216.wolf_tasks.model.notebook;
 
 import java.io.File;
 
+import edu.ncsu.csc216.wolf_tasks.model.io.NotebookWriter;
 import edu.ncsu.csc216.wolf_tasks.model.tasks.AbstractTaskList;
 import edu.ncsu.csc216.wolf_tasks.model.tasks.ActiveTaskList;
 import edu.ncsu.csc216.wolf_tasks.model.tasks.Task;
 import edu.ncsu.csc216.wolf_tasks.model.tasks.TaskList;
 import edu.ncsu.csc216.wolf_tasks.model.util.ISortedList;
+import edu.ncsu.csc216.wolf_tasks.model.util.SortedList;
 
 /**
  * A method that interacts with the GUI by offering operations on TaskLists and Tasks
@@ -20,7 +22,7 @@ public class Notebook {
 	/** A string representation of a Notebook name */
 	private String notebookName;
 	/** A boolean that keeps track if the notebook has been changhed */
-	private boolean isChnaged;
+	private boolean isChanged;
 	/** a sortedList of taskLists */
 	private ISortedList<TaskList> taskLists;
 	/** An ActiveTaskList called activeTaskList */
@@ -34,7 +36,11 @@ public class Notebook {
 	 * @param notebookname a string that holds notebook name
 	 */
 	public Notebook(String notebookname) {
-
+		setNotebookName(notebookname);
+		taskLists = new SortedList<TaskList>();
+		activeTaskList = new ActiveTaskList();
+		currentTaskList = activeTaskList;
+		setChanged(true);
 	}
 
 	/**
@@ -44,7 +50,8 @@ public class Notebook {
 	 * @param file a string that holds the location to save the notebook
 	 */
 	public void saveNotebook(File file) {
-
+		NotebookWriter.writeNotebookFile(file, notebookName, taskLists);
+		setChanged(false);
 	}
 
 	/**
@@ -62,8 +69,12 @@ public class Notebook {
 	 * 
 	 * @param notebookName is a string for notebook name
 	 */
-	private void setNotebookName(String notebookName) {
-
+	private void setNotebookName(String name) {
+		if (name == null || name.equals("") || name.toLowerCase().equals(ActiveTaskList.ACTIVE_TASKS_NAME.toLowerCase())) {
+			throw new IllegalArgumentException("Invalid notebook name.");
+		} else {
+			this.notebookName = name;
+		}
 	}
 
 	/**
@@ -82,7 +93,7 @@ public class Notebook {
 	 * @param isChanged is a boolean
 	 */
 	public void setChanged(boolean isChanged) {
-
+		this.isChanged = isChanged;
 	}
 
 	/**
@@ -91,9 +102,28 @@ public class Notebook {
 	 * @param taskList is a TaskList to be added to task lists
 	 */
 	public void addTaskList(TaskList taskList) {
-
+		if (taskList.getTaskListName().toLowerCase().equals(ActiveTaskList.ACTIVE_TASKS_NAME.toLowerCase())) {
+			throw new IllegalArgumentException("Invalid name.");
+		}
+		isDuplicate(taskList.getTaskListName());
+		
+		taskLists.add(taskList);
+		setCurrentTaskList(taskList.getTaskListName());
+		setChanged(true);
 	}
 
+	/**
+	 * Private helper method to check duplicity
+	 * @param name name of task list
+	 */
+	private void isDuplicate(String name) {
+		for (int i = 0; i < taskLists.size(); i++) {
+			if (name.equals(taskLists.get(i).getTaskListName())) {
+				throw new IllegalArgumentException("Invalid name.");
+			}
+		}
+	}
+	
 	/**
 	 * A method that Returns a list of task list names where the Active Tasks is
 	 * always listed first.
@@ -102,10 +132,15 @@ public class Notebook {
 	 */
 	public String[] getTaskListsNames() {
 		return null;
-
 	}
 
-
+	/**
+	 * 
+	 */
+	private void getActiveTaskList() {
+		
+	}
+	
 	/**
 	 * a method that sets the currentTaskList to the AbstractTaskList with the given
 	 * name. If a TaskList with that name is not found, then the currentTaskList is
@@ -113,18 +148,24 @@ public class Notebook {
 	 * 
 	 * @param taskName a string that holds taskName
 	 */
-	public void setCurrentTaskList(String taskName) {
-
+	public void setCurrentTaskList(String listName) {
+		for (int i = 0; i < taskLists.size(); i++) {
+			if (listName.equals(taskLists.get(i).getTaskListName())) {
+				currentTaskList = taskLists.get(i);
+				return;
+			}
+		}
+		currentTaskList = activeTaskList;
 	}
 
 	/**
-	 * A method that returns an abstractTaskList from a given taskListName
+	 * A method that returns an abstractTaskList which is the current task list
 	 * 
 	 * @param taskListName a string value of a task lists name
 	 * @return an AbstracttaskList
 	 */
 	public AbstractTaskList getCurrentTaskList() {
-		return null;
+		return currentTaskList;
 	}
 
 	/**
@@ -132,7 +173,15 @@ public class Notebook {
 	 * @param taskListName is a string value of a taskListName
 	 */
 	public void editTaskList(String taskListName) {
-
+		if (taskListName == null || taskListName.equals("") || taskListName.toLowerCase().equals(ActiveTaskList.ACTIVE_TASKS_NAME.toLowerCase())) {
+			throw new IllegalArgumentException("Invalid name.");
+		}
+		if (currentTaskList.getTaskListName().toLowerCase().equals(ActiveTaskList.ACTIVE_TASKS_NAME.toLowerCase())) {
+			throw new IllegalArgumentException("Invalid name.");
+		}
+		isDuplicate(taskListName);
+		currentTaskList.setTaskListName(taskListName);
+		setChanged(true);
 	}
 
 	/**
@@ -140,7 +189,17 @@ public class Notebook {
 	 * activeTaskList and also the boolean isChaged is updated to true.
 	 */
 	public void removeTaskList() {
-
+		if (currentTaskList.getTaskListName().toLowerCase().equals(ActiveTaskList.ACTIVE_TASKS_NAME.toLowerCase())) {
+			throw new IllegalArgumentException("The Active Tasks list may not be deleted.");
+		}
+		//?????????
+		for (int i = 0; i < taskLists.size(); i++) {
+			if (currentTaskList.getTaskListName().equals(taskLists.get(i).getTaskListName())) {
+				currentTaskList = taskLists.remove(i);
+			}
+		}
+		
+		setChanged(true);
 	}
 
 	/**
@@ -148,7 +207,16 @@ public class Notebook {
 	 * @param t is a Task
 	 */
 	public void addTask(Task t) {
-
+		//?????? where do we use getActiveTaskList() here ???????
+		if (!(currentTaskList instanceof TaskList)) {
+			return;
+		} else {
+			currentTaskList.addTask(t);
+			if (t.isActive()) {
+				activeTaskList.addTask(t);
+			}
+		}
+		setChanged(true);
 	}
 
 	/**
@@ -160,7 +228,21 @@ public class Notebook {
 	 * @param active is a boolean that indicates if the task is active or not
 	 */
 	public void editTask(int idx, String taskName, String taskDescription, boolean recurring, boolean active) {
-
+		//?????? where do we use getActiveTaskList() here ???????
+		if (!(currentTaskList instanceof TaskList)) {
+			return;
+		} else {
+			currentTaskList.getTask(idx).setTaskName(taskName);
+			currentTaskList.getTask(idx).setTaskDescription(taskDescription);
+			currentTaskList.getTask(idx).setRecurring(recurring);
+			currentTaskList.getTask(idx).setActive(active);
+			
+			if (currentTaskList.getTask(idx).isActive()) {
+				activeTaskList.addTask(currentTaskList.getTask(idx));
+			}
+		}
+		//call getActiveTaskList()
+		setChanged(true);
 	}
 
 }
