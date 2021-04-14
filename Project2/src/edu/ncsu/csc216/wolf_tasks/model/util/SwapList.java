@@ -7,10 +7,10 @@ package edu.ncsu.csc216.wolf_tasks.model.util;
  *
  * @param <E> The type of object being stored in the given list
  */
-public class SwapList<E> implements ISwapList<E>{
+public class SwapList<E> implements ISwapList<E> {
 
 	/** Default capacity for the array list */
-	private int INITIAL_CAPACITY = 10;
+	private static final int INITIAL_CAPACITY = 10;
 
 	/** Array used to store values within the Array List */
 	private E [] list;
@@ -53,7 +53,7 @@ public class SwapList<E> implements ISwapList<E>{
 	/**
 	 * Checks to make sure the list length doesn't exceed the capacity, and if it does, it doubles the length of the list
 	 * 
-	 * @param idx is an integer
+	 * @param size size of the array
 	 */
 	@SuppressWarnings("unchecked")
 	private void checkCapacity(int size) {
@@ -158,7 +158,7 @@ public class SwapList<E> implements ISwapList<E>{
 		//store value of element at front of list
 		E temp = list[idx];
 		for (int i = idx; i > 0; i--) {
-			list[i] = list[i-1];			
+			list[i] = list[i - 1];			
 		}
 		//set current element to the first position
 		list[0] = temp;
@@ -179,10 +179,11 @@ public class SwapList<E> implements ISwapList<E>{
 		}
 		//store value of element at back of list
 		E temp = list[idx];
-		for (int i = 0; i < size; i++) {
-			list[i] = list[i+1];
+		//shift elements between index and the last element up
+		for (int i = idx; i < size; i++) {
+			list[i] = list[i + 1];
 		}
-		//set current element to the last position
+		//set the last position to the element that was at the index
 		list[size - 1] = temp;
 	}
 	

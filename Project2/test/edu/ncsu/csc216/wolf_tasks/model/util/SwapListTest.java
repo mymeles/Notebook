@@ -215,6 +215,28 @@ public class SwapListTest {
 		assertEquals("winner", list.get(1));
 		assertEquals("loser", list.get(2));
 		assertEquals("hello", list.get(3));
+		
+		//test failing scenario from Jenkins
+		SwapList<String> list2 = new SwapList<>();
+		list2.add("apple");
+		list2.add("pear");
+		list2.add("banana");
+		list2.add("cherry");
+		list2.add("blueberries");
+		
+		assertEquals("apple", list2.get(0));
+		assertEquals("pear", list2.get(1));
+		assertEquals("banana", list2.get(2));
+		assertEquals("cherry", list2.get(3));
+		assertEquals("blueberries", list2.get(4));
+
+		list2.moveToBack(2);
+
+		assertEquals("apple", list2.get(0));
+		assertEquals("pear", list2.get(1));
+		assertEquals("cherry", list2.get(2));
+		assertEquals("blueberries", list2.get(3));
+		assertEquals("banana", list2.get(4));
 	}
 
 }
