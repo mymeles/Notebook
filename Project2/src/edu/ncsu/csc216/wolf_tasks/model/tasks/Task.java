@@ -3,7 +3,6 @@
  */
 package edu.ncsu.csc216.wolf_tasks.model.tasks;
 
-import java.util.Iterator;
 
 import edu.ncsu.csc216.wolf_tasks.model.util.ISwapList;
 import edu.ncsu.csc216.wolf_tasks.model.util.SwapList;

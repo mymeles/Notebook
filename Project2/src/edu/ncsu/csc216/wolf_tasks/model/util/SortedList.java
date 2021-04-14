@@ -34,7 +34,7 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 		}
 
 		if (contains(element)) {
-			throw new IllegalArgumentException("Cannot add duplicate element");
+			throw new IllegalArgumentException("Cannot add duplicate element.");
 		}
 
 		if (front == null || front.data.compareTo(element) >= 0) {
@@ -86,7 +86,7 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	}
 
 	/**
-	 * A method that checks the index of an element
+	 * A method that checks the index of an element 
 	 * 
 	 * @param idx is an integer
 	 */

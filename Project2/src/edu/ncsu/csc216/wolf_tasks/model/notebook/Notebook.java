@@ -142,7 +142,7 @@ public class Notebook {
 	 * 
 	 */
 	private void getActiveTaskList() {
-		
+		///
 	}
 	
 	/**
@@ -221,6 +221,7 @@ public class Notebook {
 			}
 		}
 		setChanged(true);
+		getActiveTaskList();
 	}
 
 	/**

@@ -82,7 +82,6 @@ public class TaskListTest {
 		TaskList list1 = new TaskList("Party", 21);
 		TaskList list2 = new TaskList("School", 14);
 		TaskList list3 = new TaskList("Church", 7);
-		TaskList list4 = new TaskList("School", 2);
 		
 		assertTrue(list1.compareTo(list2) < 0);
 		assertTrue(list1.compareTo(list3) > 0);
