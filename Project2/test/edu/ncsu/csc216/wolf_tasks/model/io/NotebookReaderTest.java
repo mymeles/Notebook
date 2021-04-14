@@ -9,6 +9,11 @@ import org.junit.Test;
 import edu.ncsu.csc216.wolf_tasks.model.notebook.Notebook;
 import edu.ncsu.csc216.wolf_tasks.model.tasks.ActiveTaskList;
 
+/**
+ * Test for NotebookReader class
+ * @author Helen Solomon
+ * @author Meles Meles
+ */
 public class NotebookReaderTest {
 
 	/**
