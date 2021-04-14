@@ -119,7 +119,7 @@ public class NotebookReader {
 	/**
 	 * takes in a list of AbstractTaskList and and taskDiscription and returns a Task
 	 * @param task a list of Abstract List     
-	 * @param taskDiscription a string that holds a tasks discription
+	 * @param taskDiscription a string that holds a tasks description
 	 * @return returns a Task
 	 */
 	private static Task processTask(AbstractTaskList taskList, String taskData) {

@@ -40,7 +40,6 @@ public class Notebook {
 		taskLists = new SortedList<TaskList>();
 		activeTaskList = new ActiveTaskList();
 		currentTaskList = activeTaskList;
-		taskLists.add((TaskList)currentTaskList);
 		setChanged(true);
 	}
 

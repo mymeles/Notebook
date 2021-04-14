@@ -95,7 +95,7 @@ public class SortedListTest {
 			int1.add(null);
 			fail();
 		} catch (NullPointerException e) {
-			assertEquals("Cannot add null element", e.getMessage());
+			assertEquals("Cannot add null element.", e.getMessage());
 			assertEquals(1, (int) (int1.get(0)));
 			assertEquals(2, (int) (int1.get(1)));
 			assertEquals(3, (int) (int1.get(2)));
@@ -109,7 +109,7 @@ public class SortedListTest {
 			int1.get(10);
 			fail();
 		} catch (IndexOutOfBoundsException e) {
-			assertEquals("Invalid index", e.getMessage());
+			assertEquals("Invalid index.", e.getMessage());
 			assertEquals(1, (int) (int1.get(0)));
 			assertEquals(2, (int) (int1.get(1)));
 			assertEquals(3, (int) (int1.get(2)));

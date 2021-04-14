@@ -63,7 +63,7 @@ public class NotebookReaderTest {
 		assertEquals(3, nb1.getTaskListsNames().length);
 		assertEquals("CSC 216", nb1.getTaskListsNames()[0]);
 		assertEquals("CSC 226", nb1.getTaskListsNames()[1]);
-		assertEquals("Habits", nb1.getTaskListsNames()[2]);
+		assertEquals("Habits", (String)nb1.getTaskListsNames()[2]);
 		
 		assertEquals("Habits", nb1.getCurrentTaskList().getTaskListName());
 		assertEquals("School", nb1.getNotebookName());

@@ -86,7 +86,7 @@ public class TaskListTest {
 		
 		assertTrue(list1.compareTo(list2) < 0);
 		assertTrue(list1.compareTo(list3) > 0);
-		assertEquals(0, list1.compareTo(list4));
+		assertEquals(0, list1.compareTo(list1));
 	}
 
 }
