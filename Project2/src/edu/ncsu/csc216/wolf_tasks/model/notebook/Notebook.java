@@ -67,7 +67,7 @@ public class Notebook {
 	/**
 	 * a method the sets the notebook name to the given parameter.
 	 * 
-	 * @param notebookName is a string for notebook name
+	 * @param name is a string for notebook name
 	 */
 	private void setNotebookName(String name) {
 		if (name == null || name.equals("") || name.toLowerCase().equals(ActiveTaskList.ACTIVE_TASKS_NAME.toLowerCase())) {
@@ -131,10 +131,17 @@ public class Notebook {
 	 * @return an array of strings
 	 */
 	public String[] getTaskListsNames() {
-		String[] lists = new String[taskLists.size()];
-		for (int i = 0; i < taskLists.size(); i++) {
-			lists[i] = taskLists.get(i).getTaskListName();
+		String[] lists = new String[taskLists.size() + 1];;
+		if (taskLists.size() == 0) {
+			lists = new String[1];
+			lists[0] = activeTaskList.getTaskListName();
+			return lists;
 		}
+		for (int i = 0; i < taskLists.size(); i++) {
+				lists[0] = activeTaskList.getTaskListName();
+				lists[i + 1] = taskLists.get(i).getTaskListName();
+		}
+		
 		return lists;
 	}
 

@@ -26,12 +26,12 @@ public class NotebookReader {
 	 * @param file a string that holds a location of a txt file for notebook
 	 * @return returns a Notebook
 	 */
-	public static Notebook readNodebookFile(File filename) {
+	public static Notebook readNodebookFile(File file) {
 		Notebook nb = null;
 		TaskList list = null;
 		try {
 			//scan file
-			Scanner scan = new Scanner(new FileInputStream(filename));
+			Scanner scan = new Scanner(new FileInputStream(file));
 			//store contents into string, make a big string
 			String contents = "";
 			while (scan.hasNextLine()) {
@@ -104,9 +104,6 @@ public class NotebookReader {
 				task = processTask(list, taskData);
 				if (task != null) {
 					list.addTask(task);
-				} else {
-					scanList.close();
-					return null;
 				}
 			}
 			scanList.close();
@@ -118,8 +115,8 @@ public class NotebookReader {
 
 	/**
 	 * takes in a list of AbstractTaskList and and taskDiscription and returns a Task
-	 * @param task a list of Abstract List     
-	 * @param taskDiscription a string that holds a tasks description
+	 * @param taskList a list of Abstract List     
+	 * @param taskData a string that holds a tasks description
 	 * @return returns a Task
 	 */
 	private static Task processTask(AbstractTaskList taskList, String taskData) {
@@ -134,7 +131,7 @@ public class NotebookReader {
 		Scanner scanDetails = new Scanner(taskDetails);
 		scanDetails.useDelimiter(",");
 		String name = scanDetails.next().trim();
-		if (name.equals("active") || name.equals("recurring")) {
+		if ("active".equals(name) || "recurring".equals(name)) {
 			scanDetails.close();
 			scan.close();
 			return null;
@@ -142,7 +139,7 @@ public class NotebookReader {
 		String state = "";
 		
 		while (scanDetails.hasNext()) {
-			state = state += " " + scanDetails.next();
+			state += " " + scanDetails.next();
 		}
 		scanDetails.close();
 		
