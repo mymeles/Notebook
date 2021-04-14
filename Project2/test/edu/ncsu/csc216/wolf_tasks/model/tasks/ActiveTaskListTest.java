@@ -95,11 +95,6 @@ public class ActiveTaskListTest {
 		active1.addTask(task2);
 		active1.addTask(task1);
 		
-		task1.addTaskList(active1);
-		task2.addTaskList(active1);
-		task3.addTaskList(active1);
-		task4.addTaskList(active1);
-		
 		assertEquals(4, active1.getTasksAsArray().length);
 		active1.clearTasks();
 		assertEquals(0, active1.getTasksAsArray().length);
