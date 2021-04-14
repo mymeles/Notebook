@@ -30,7 +30,7 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	@Override
 	public void add(E element) {
 		if (element == null) {
-			throw new NullPointerException("Cannot add null element");
+			throw new NullPointerException("Cannot add null element.");
 		}
 
 		if (contains(element)) {
@@ -92,7 +92,7 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	 */
 	private void checkIndex(int idx) {
 		if (idx < 0 || idx >= this.size())
-			throw new IndexOutOfBoundsException("Invalid index");
+			throw new IndexOutOfBoundsException("Invalid index.");
 
 	}
 

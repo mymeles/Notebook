@@ -21,7 +21,7 @@ public class Notebook {
 
 	/** A string representation of a Notebook name */
 	private String notebookName;
-	/** A boolean that keeps track if the notebook has been changhed */
+	/** A boolean that keeps track if the notebook has been changed */
 	private boolean isChanged;
 	/** a sortedList of taskLists */
 	private ISortedList<TaskList> taskLists;
@@ -40,6 +40,7 @@ public class Notebook {
 		taskLists = new SortedList<TaskList>();
 		activeTaskList = new ActiveTaskList();
 		currentTaskList = activeTaskList;
+		taskLists.add((TaskList)currentTaskList);
 		setChanged(true);
 	}
 
