@@ -105,7 +105,7 @@ public abstract class AbstractTaskList {
 	 * 
 	 */
 	public void addTask(Task task) {
-		this.tasks.add(task);
+		tasks.add(task);
 		//add list to task
 		task.addTaskList(this);
 	}
