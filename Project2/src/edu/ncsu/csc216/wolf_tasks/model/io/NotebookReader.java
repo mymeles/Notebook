@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 import edu.ncsu.csc216.wolf_tasks.model.notebook.Notebook;
 import edu.ncsu.csc216.wolf_tasks.model.tasks.AbstractTaskList;
-import edu.ncsu.csc216.wolf_tasks.model.tasks.ActiveTaskList;
 import edu.ncsu.csc216.wolf_tasks.model.tasks.Task;
 import edu.ncsu.csc216.wolf_tasks.model.tasks.TaskList;
 
@@ -20,8 +19,10 @@ import edu.ncsu.csc216.wolf_tasks.model.tasks.TaskList;
  *
  */
 public class NotebookReader {
-	
-	private static Notebook nb; 
+	/**
+	 * Notebook that will contain the list elements
+	 */
+	public static Notebook nb; 
 
 	/**
 	 * A method that reads in a file of NoteBook.
@@ -31,7 +32,6 @@ public class NotebookReader {
 	 */
 	public static Notebook readNodebookFile(File file) {
 		nb = null;
-		TaskList list = null;
 		try {
 			//scan file
 			Scanner scan = new Scanner(new FileInputStream(file));
@@ -57,10 +57,10 @@ public class NotebookReader {
 			while (scanBook.hasNext()) {
 				//process this group of task lists
 				String line = scanBook.next().trim();
-				list = processTaskList(line); 
-				if (list != null) {
-					nb.addTaskList(list);
-				}
+				processTaskList(line); 
+//				if (list != null) {
+//					nb.addTaskList(list);
+//				}
 			}
 			scanBook.close();
 		} catch (FileNotFoundException e) {

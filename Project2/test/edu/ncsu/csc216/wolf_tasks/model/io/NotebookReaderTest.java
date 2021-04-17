@@ -73,9 +73,18 @@ public class NotebookReaderTest {
 		assertEquals("CSC 216", nb1.getTaskListsNames()[1]);
 		assertEquals("CSC 226", nb1.getTaskListsNames()[2]);
 		assertEquals("Habits", nb1.getTaskListsNames()[3]);
-		assertEquals(5, nb1.getCurrentTaskList().getTasksAsArray().length);
-		
+
 		assertEquals("Habits", nb1.getCurrentTaskList().getTaskListName());
+		assertEquals(2, nb1.getCurrentTaskList().getTasks().size());
+
+		nb1.setCurrentTaskList("CSC 216");
+		assertEquals("CSC 216", nb1.getCurrentTaskList().getTaskListName());
+		assertEquals(9, nb1.getCurrentTaskList().getTasks().size());
+
+		nb1.setCurrentTaskList("CSC 226");
+		assertEquals("CSC 226", nb1.getCurrentTaskList().getTaskListName());
+		assertEquals(5, nb1.getCurrentTaskList().getTasks().size());
+		
 		nb1.setCurrentTaskList("Active Tasks");
 		assertEquals("Active Tasks", nb1.getCurrentTaskList().getTaskListName());
 		assertEquals(5, nb1.getCurrentTaskList().getTasks().size());
