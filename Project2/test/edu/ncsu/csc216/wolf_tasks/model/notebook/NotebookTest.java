@@ -26,7 +26,7 @@ public class NotebookTest {
 		try {
 			nb = new Notebook("");
 		} catch (IllegalArgumentException e) {
-			assertEquals("Invalid notebook name.", e.getMessage());
+			assertEquals("Invalid name.", e.getMessage());
 		}
 		nb = new Notebook("Notebook");
 		assertEquals("Notebook", nb.getNotebookName());
@@ -104,7 +104,7 @@ public class NotebookTest {
 		try {
 			nb.editTaskList("Groceries");
 		} catch (IllegalArgumentException e) {
-			assertEquals("Invalid name.", e.getMessage());
+			assertEquals("The Active Tasks list may not be edited.", e.getMessage());
 		}
 
 		TaskList list = new TaskList("CSC 216", 5);

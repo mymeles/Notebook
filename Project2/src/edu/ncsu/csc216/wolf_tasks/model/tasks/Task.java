@@ -63,7 +63,7 @@ public class Task implements Cloneable {
 	 * @param taskName name of task
 	 */
 	public void setTaskName(String taskName) {
-		if (taskName == null || taskName.equals("")) {
+		if (taskName == null || "".equals(taskName)) {
 			throw new IllegalArgumentException("Incomplete task information.");
 		}
 		this.taskName = taskName;
@@ -144,7 +144,7 @@ public class Task implements Cloneable {
 	 * ???????????????????????????????? Adds task list to notebook
 	 * 
 	 * @param list list to be added to notebook
-	 * @throws IllegalArgumentException
+	 * @throws IllegalArgumentException if list to be added is null
 	 */
 	public void addTaskList(AbstractTaskList list) {
 		if (list == null) {
@@ -163,27 +163,32 @@ public class Task implements Cloneable {
 	/**
 	 * Sets task as complete
 	 * 
-	 * @throws CloneNotSupportedException
+	 * @throws CloneNotSupportedException if clone cannot be created
 	 */
 	public void completeTask() {
 		Task clone = null;
-		if (recurring) {
+		//check if task is recurring
+		boolean isRecurring = false;
+		if (this.isRecurring()) {
+			isRecurring = true;
 			try {
-				clone = (Task)this.clone();
-
+				clone = this.clone();
 			} catch (CloneNotSupportedException e) {
+				//
 			}
 		}
+		
 		for (int i = 0; i < taskLists.size(); i++) {
-			taskLists.get(i).completeTask(this);
-			if (clone != null && recurring) {
-
-				taskLists.get(i).addTask(clone);
+			for (int j = 0; j < taskLists.get(i).getTasks().size(); j++) {
+				if (this == taskLists.get(i).getTask(j)) {
+					taskLists.get(i).completeTask(this);
+					if (isRecurring && clone != null) {
+						taskLists.get(i).addTask(clone);
+					}
+					break;
+				}
 			}
-
-			// go through each list
 		}
-
 	}
 
 	/**
@@ -195,19 +200,21 @@ public class Task implements Cloneable {
 	 */
 	public Task clone() throws CloneNotSupportedException {
 		for (int i = 0; i < taskLists.size(); i++) {
-			if (taskLists.get(i).getTask(i).getTaskName().equals(taskName)) {
-				// create new swapList
-				ISwapList<AbstractTaskList> lists = new SwapList<AbstractTaskList>();
-				// store the lists in a new swapList
-				lists = taskLists;
-				// create duplicate task from everything given
-				Task clonedTask = new Task(taskName, taskDescription, recurring, active);
-				// add each of the stored lists into the swaplist created in the new Task
-				for (int j = 0; j < lists.size(); j++) {
-					clonedTask.addTaskList(lists.get(j));
+			for (int j = 0; j < taskLists.get(i).getTasks().size(); j++) {
+				if (taskLists.get(i).getTask(j).getTaskName().equals(taskName)) {
+					// create new swapList
+					ISwapList<AbstractTaskList> lists = new SwapList<AbstractTaskList>();
+					// store the lists in a new swapList
+					lists = taskLists;
+					// create duplicate task from everything given
+					Task clonedTask = new Task(taskName, taskDescription, recurring, active);
+					// add each of the stored lists into the swaplist created in the new Task
+					for (int k = 0; k < lists.size(); k++) {
+						clonedTask.addTaskList(lists.get(i));
+					}
+					// return the cloned task
+					return clonedTask;
 				}
-				// return the cloned task
-				return clonedTask;
 			}
 		}
 		throw new CloneNotSupportedException("Cannot clone.");
