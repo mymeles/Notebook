@@ -71,7 +71,7 @@ public class Notebook {
 	 */
 	private void setNotebookName(String name) {
 		if (name == null || "".equals(name) || name.compareToIgnoreCase(ActiveTaskList.ACTIVE_TASKS_NAME) == 0) {
-			throw new IllegalArgumentException("Invalid notebook name.");
+			throw new IllegalArgumentException("Invalid name.");
 		} else {
 			this.notebookName = name;
 		}
@@ -184,10 +184,10 @@ public class Notebook {
 	 */
 	public void editTaskList(String taskListName) {
 		if (taskListName == null || "".equals(taskListName) || taskListName.compareToIgnoreCase(ActiveTaskList.ACTIVE_TASKS_NAME) == 0) {
-			throw new IllegalArgumentException("The Active Tasks list may not be edited.");
+			throw new IllegalArgumentException("Invalid name.");
 		}
 		if (currentTaskList.getTaskListName().compareToIgnoreCase(ActiveTaskList.ACTIVE_TASKS_NAME) == 0) {
-			throw new IllegalArgumentException("Invalid name.");
+			throw new IllegalArgumentException("The Active Tasks list may not be edited.");
 		}
 		isDuplicate(taskListName);
 		currentTaskList.setTaskListName(taskListName);
