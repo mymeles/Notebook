@@ -173,7 +173,7 @@ public class Task implements Cloneable {
 
 			} catch (CloneNotSupportedException e) {
 			}
-		}
+		} 
 		for (int i = 0; i < taskLists.size(); i++) {
 			taskLists.get(i).completeTask(this);
 			if (clone != null && recurring) {
@@ -182,7 +182,7 @@ public class Task implements Cloneable {
 			}
 
 			// go through each list
-		}
+		} 
 
 	}
 

@@ -137,8 +137,22 @@ public abstract class AbstractTaskList {
 	 * @param task task that will be set as complete
 	 */
 	public void completeTask(Task task) {
+		Task clone = null;
+		for(int i = 0; i < tasks.size(); i++) {
+		if(task == tasks.get(i)) {
+			if (task.isRecurring()) {
+			try {
+				clone = (tasks.get(i));
+				this.clone();
+			} catch (CloneNotSupportedException e) {
+			}
+			}
+		}  
+		}
 		for(int i = 0; i < tasks.size(); i++) {
 			if(task == tasks.get(i)) {
+				if(task.isRecurring())
+					tasks.add(clone);
 				this.tasks.remove(i);
 				completedCount++; 
 			}

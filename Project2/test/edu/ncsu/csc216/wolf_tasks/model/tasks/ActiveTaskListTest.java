@@ -99,5 +99,31 @@ public class ActiveTaskListTest {
 		active1.clearTasks();
 		assertEquals(0, active1.getTasksAsArray().length);
 	}
+	
+	@Test
+	public void testCompleteTask() {
+		ActiveTaskList active1 = new ActiveTaskList();
+		Task task1 = new Task("HomeWork", "Do it today", false, true);
+		Task task2 = new Task("HomeWork1", "Do it today", false, true);
+		Task task3 = new Task("HomeWork2", "Do it today", true, true);
+		Task task4 = new Task("HomeWork3", "Do it today", false, true);
+		Task task5 = new Task("HomeWork4", "Do it today", false, true);
+		
+		active1.addTask(task5);
+		active1.addTask(task4);
+		active1.addTask(task3);
+		active1.addTask(task2);
+		active1.addTask(task1);
+		
+		active1.completeTask(task2);
+		active1.completeTask(task3);
+		
+		assertEquals(4, active1.getTasksAsArray().length);
+		
+		for(int i =0; i < active1.getTasksAsArray().length; i++) {
+			System.out.println(active1.getTasksAsArray()[i][1]);
+		}
+		
+	}
 
 }
