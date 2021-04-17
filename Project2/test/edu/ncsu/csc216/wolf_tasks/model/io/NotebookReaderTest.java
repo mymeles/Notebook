@@ -75,6 +75,10 @@ public class NotebookReaderTest {
 		assertEquals("Habits", nb1.getTaskListsNames()[3]);
 		
 		assertEquals("Habits", nb1.getCurrentTaskList().getTaskListName());
+		nb1.setCurrentTaskList("Active Tasks");
+		assertEquals("Active Tasks", nb1.getCurrentTaskList().getTaskListName());
+		assertEquals(5, nb1.getCurrentTaskList().getTasks().size());
+		
 		assertEquals("School", nb1.getNotebookName());
 		
 		//test a valid file with no task lists
@@ -123,7 +127,14 @@ public class NotebookReaderTest {
 //		assertEquals(2, nb8.getTaskListsNames().length);
 		assertEquals("Active Tasks", nb8.getTaskListsNames()[0]);
 		assertEquals("Habits", nb8.getTaskListsNames()[1]);
+
+		assertEquals("Habits", nb8.getCurrentTaskList().getTaskListName());
 		assertEquals(3, nb8.getCurrentTaskList().getCompletedCount());
+		assertEquals(1, nb8.getCurrentTaskList().getTasks().size());
+		nb8.setCurrentTaskList(ActiveTaskList.ACTIVE_TASKS_NAME);
+		assertEquals("Active Tasks", nb8.getCurrentTaskList().getTaskListName());
+		assertEquals(1, nb8.getCurrentTaskList().getTasks().size());
+
 
 	}
 }

@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import edu.ncsu.csc216.wolf_tasks.model.notebook.Notebook;
 import edu.ncsu.csc216.wolf_tasks.model.tasks.AbstractTaskList;
+import edu.ncsu.csc216.wolf_tasks.model.tasks.ActiveTaskList;
 import edu.ncsu.csc216.wolf_tasks.model.tasks.Task;
 import edu.ncsu.csc216.wolf_tasks.model.tasks.TaskList;
 
@@ -19,6 +20,8 @@ import edu.ncsu.csc216.wolf_tasks.model.tasks.TaskList;
  *
  */
 public class NotebookReader {
+	
+	private static Notebook nb;
 
 	/**
 	 * A method that reads in a file of NoteBook.
@@ -27,7 +30,7 @@ public class NotebookReader {
 	 * @return returns a Notebook
 	 */
 	public static Notebook readNodebookFile(File file) {
-		Notebook nb = null;
+		nb = null;
 		TaskList list = null;
 		try {
 			//scan file
@@ -55,9 +58,9 @@ public class NotebookReader {
 				//process this group of task lists
 				String line = scanBook.next().trim();
 				list = processTaskList(line);
-				if (list != null) {
-					nb.addTaskList(list);
-				}
+//				if (list != null) {
+//					nb.addTaskList(list);
+//				}
 			}
 			scanBook.close();
 		} catch (FileNotFoundException e) {
@@ -97,13 +100,18 @@ public class NotebookReader {
 			scnrName.close();
 			//construct a task list
 			list = new TaskList(name, count);
+			nb.addTaskList(list);
+			//adding the list will make it the current list, making it easier to add tasks
 			//get the task tokens
 			scanList.useDelimiter("\\r?\\n?[*]");
 			while (scanList.hasNext()) {
 				String taskData = scanList.next().trim();
 				task = processTask(list, taskData);
 				if (task != null) {
-					list.addTask(task);
+					//this add method doesn't add task to active ???
+					//i want to use the notebooks add method but can't ?!!!!    D:
+					//list.addTask(task);
+					nb.addTask(task);
 				}
 			}
 			scanList.close();
@@ -112,6 +120,7 @@ public class NotebookReader {
 		}
 		return list;
 	}
+	
 
 	/**
 	 * takes in a list of AbstractTaskList and and taskDiscription and returns a Task

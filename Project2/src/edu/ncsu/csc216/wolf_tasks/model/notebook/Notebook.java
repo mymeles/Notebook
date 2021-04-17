@@ -70,7 +70,7 @@ public class Notebook {
 	 * @param name is a string for notebook name
 	 */
 	private void setNotebookName(String name) {
-		if (name == null || name.equals("") || name.toLowerCase().equals(ActiveTaskList.ACTIVE_TASKS_NAME.toLowerCase())) {
+		if (name == null || "".equals(name) || name.compareToIgnoreCase(ActiveTaskList.ACTIVE_TASKS_NAME) == 0) {
 			throw new IllegalArgumentException("Invalid notebook name.");
 		} else {
 			this.notebookName = name;
@@ -131,7 +131,7 @@ public class Notebook {
 	 * @return an array of strings
 	 */
 	public String[] getTaskListsNames() {
-		String[] lists = new String[taskLists.size() + 1];;
+		String[] lists = new String[taskLists.size() + 1];
 		if (taskLists.size() == 0) {
 			lists = new String[1];
 			lists[0] = activeTaskList.getTaskListName();
@@ -157,7 +157,7 @@ public class Notebook {
 	 * name. If a TaskList with that name is not found, then the currentTaskList is
 	 * set to the activeTaskList
 	 * 
-	 * @param taskName a string that holds taskName
+	 * @param listName a string that holds taskName
 	 */
 	public void setCurrentTaskList(String listName) {
 		for (int i = 0; i < taskLists.size(); i++) {
@@ -172,7 +172,6 @@ public class Notebook {
 	/**
 	 * A method that returns an abstractTaskList which is the current task list
 	 * 
-	 * @param taskListName a string value of a task lists name
 	 * @return an AbstracttaskList
 	 */
 	public AbstractTaskList getCurrentTaskList() {
@@ -184,7 +183,7 @@ public class Notebook {
 	 * @param taskListName is a string value of a taskListName
 	 */
 	public void editTaskList(String taskListName) {
-		if (taskListName == null || taskListName.equals("") || taskListName.toLowerCase().equals(ActiveTaskList.ACTIVE_TASKS_NAME.toLowerCase())) {
+		if (taskListName == null || "".equals(taskListName) || taskListName.compareToIgnoreCase(ActiveTaskList.ACTIVE_TASKS_NAME) == 0) {
 			throw new IllegalArgumentException("Invalid name.");
 		}
 		if (currentTaskList.getTaskListName().compareToIgnoreCase(ActiveTaskList.ACTIVE_TASKS_NAME) == 0) {
@@ -228,7 +227,8 @@ public class Notebook {
 			}
 		}
 		setChanged(true);
-		getActiveTaskList();
+		
+		getActiveTaskList(); //unimplemented
 	}
 
 	/**
