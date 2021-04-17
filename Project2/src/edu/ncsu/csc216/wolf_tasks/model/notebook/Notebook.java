@@ -243,7 +243,7 @@ public class Notebook {
 		//?????? where do we use getActiveTaskList() here ???????
 		if (!(currentTaskList instanceof TaskList)) {
 			return;
-		}
+		} 
 		//record active state before being edited to prevent being added again 
 		boolean wasActive = false;
 		if (currentTaskList.getTask(idx).isActive()) {
