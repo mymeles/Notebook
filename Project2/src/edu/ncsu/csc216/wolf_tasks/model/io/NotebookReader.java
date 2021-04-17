@@ -21,7 +21,7 @@ import edu.ncsu.csc216.wolf_tasks.model.tasks.TaskList;
  */
 public class NotebookReader {
 	
-	private static Notebook nb;
+	private static Notebook nb; 
 
 	/**
 	 * A method that reads in a file of NoteBook.
@@ -58,9 +58,9 @@ public class NotebookReader {
 				//process this group of task lists
 				String line = scanBook.next().trim();
 				list = processTaskList(line); 
-//				if (list != null) {
-//					nb.addTaskList(list);
-//				}
+				if (list != null) {
+					nb.addTaskList(list);
+				}
 			}
 			scanBook.close();
 		} catch (FileNotFoundException e) {

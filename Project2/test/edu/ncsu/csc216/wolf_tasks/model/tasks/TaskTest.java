@@ -142,7 +142,7 @@ public class TaskTest {
 		Task clone = null;
 		try {
 			clone = task.clone();
-			assertTrue(task == clone);
+			assertTrue(task.getTaskName().equals(clone.getTaskName()));
 			assertEquals("CSC 216", clone.getTaskName());
 		} catch (CloneNotSupportedException c) {
 			//
@@ -150,7 +150,7 @@ public class TaskTest {
 
 		try {
 			clone = task0.clone();
-			assertTrue(task0 == clone);
+			assertTrue(task0.getTaskName().equals(clone.getTaskName()));
 		} catch (CloneNotSupportedException c) {
 			//
 		}
@@ -158,7 +158,7 @@ public class TaskTest {
 		// cloning when we add a list to task
 		try {
 			clone = task1.clone();
-			assertTrue(task1 == clone);
+			assertTrue(task1.getTaskName().equals(clone.getTaskName()));
 		} catch (CloneNotSupportedException c) {
 			//
 		}
@@ -166,7 +166,7 @@ public class TaskTest {
 		// testing cloning when we add a list to
 		try {
 			clone = task2.clone();
-			assertTrue(task2 == clone);
+			assertTrue(task2.getTaskName().equals(clone.getTaskName()));
 		} catch (CloneNotSupportedException c) {
 			//
 		}
