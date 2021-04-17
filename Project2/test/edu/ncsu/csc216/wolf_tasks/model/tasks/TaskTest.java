@@ -4,68 +4,114 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/**
+ * Tests the Task class
+ * 
+ * @author Meles Meles
+ * @author Helen Solomon
+ *
+ */
 public class TaskTest {
 
+	/**
+	 * Tests the constructor
+	 */
 	@Test
 	public void testTask() {
 		fail("Not yet implemented");
 	}
 
+	/**
+	 * Tests the getTaskName() method
+	 */
 	@Test
 	public void testGetTaskName() {
 		fail("Not yet implemented");
 	}
 
+	/**
+	 * Tests the setTaskName() method
+	 */
 	@Test
 	public void testSetTaskName() {
 		fail("Not yet implemented");
 	}
 
+	/**
+	 * Tests the getTaskDescription() method
+	 */
 	@Test
 	public void testGetTaskDescription() {
 		fail("Not yet implemented");
 	}
 
+	/**
+	 * Tests the setTaskDescription() method
+	 */
 	@Test
 	public void testSetTaskDescription() {
 		fail("Not yet implemented");
 	}
 
+	/**
+	 * Tests the isRecurring() method
+	 */
 	@Test
 	public void testIsRecurring() {
 		fail("Not yet implemented");
 	}
 
+	/**
+	 * Tests the setRecurring() method
+	 */
 	@Test
 	public void testSetRecurring() {
 		fail("Not yet implemented");
 	}
 
+	/**
+	 * Tests the isActive() method
+	 */
 	@Test
 	public void testIsActive() {
 		fail("Not yet implemented");
 	}
 
+	/**
+	 * Tests the setActive() method
+	 */
 	@Test
 	public void testSetActive() {
 		fail("Not yet implemented");
 	}
 
+	/**
+	 * Tests the getTaskListName() method
+	 */
 	@Test
 	public void testGetTaskListName() {
 		fail("Not yet implemented");
 	}
 
+	/**
+	 * Tests the addTaskList() name
+	 */
 	@Test
 	public void testAddTaskList() {
 		fail("Not yet implemented");
 	}
 
+	/**
+	 * Tests the completeTask() method
+	 */
 	@Test
 	public void testCompleteTask() {
 		fail("Not yet implemented");
 	}
 
+	/**
+	 * Tests the clone() method
+	 */
 	@Test
 	public void testClone() {
 		Task task = new Task("CSC 126", "description", true, false);
@@ -105,6 +151,9 @@ public class TaskTest {
 		assertEquals(4, list0.getTasksAsArray().length);
 	}
  
+	/**
+	 * Tests the toString() method
+	 */
 	@Test
 	public void testToString() {
 		Task task1 = new Task("name", "description", false, false);
@@ -118,7 +167,6 @@ public class TaskTest {
 
 		Task task4 = new Task("name", "description", true, true);
 		assertEquals("* name,recurring,active\n" + "description", task4.toString());
-
 
 	}
 
