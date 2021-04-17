@@ -184,7 +184,7 @@ public class Notebook {
 	 */
 	public void editTaskList(String taskListName) {
 		if (taskListName == null || "".equals(taskListName) || taskListName.compareToIgnoreCase(ActiveTaskList.ACTIVE_TASKS_NAME) == 0) {
-			throw new IllegalArgumentException("Invalid name.");
+			throw new IllegalArgumentException("The Active Tasks list may not be edited.");
 		}
 		if (currentTaskList.getTaskListName().compareToIgnoreCase(ActiveTaskList.ACTIVE_TASKS_NAME) == 0) {
 			throw new IllegalArgumentException("Invalid name.");
@@ -243,17 +243,23 @@ public class Notebook {
 		//?????? where do we use getActiveTaskList() here ???????
 		if (!(currentTaskList instanceof TaskList)) {
 			return;
-		} else {
-			currentTaskList.getTask(idx).setTaskName(taskName);
-			currentTaskList.getTask(idx).setTaskDescription(taskDescription);
-			currentTaskList.getTask(idx).setRecurring(recurring);
-			currentTaskList.getTask(idx).setActive(active);
-			
-			if (currentTaskList.getTask(idx).isActive()) {
-				activeTaskList.addTask(currentTaskList.getTask(idx));
-			}
 		}
-		//call getActiveTaskList()
+		//record active state before being edited to prevent being added again 
+		boolean wasActive = false;
+		if (currentTaskList.getTask(idx).isActive()) {
+			wasActive = true;
+		}
+		
+		currentTaskList.getTask(idx).setTaskName(taskName);
+		currentTaskList.getTask(idx).setTaskDescription(taskDescription);
+		currentTaskList.getTask(idx).setRecurring(recurring);
+		currentTaskList.getTask(idx).setActive(active);
+		
+		if (!wasActive && currentTaskList.getTask(idx).isActive()) {
+			activeTaskList.addTask(currentTaskList.getTask(idx));
+		}
+		
+		//call getActiveTaskList()  ?????????
 		setChanged(true);
 	}
 
