@@ -88,6 +88,7 @@ public class NotebookReaderTest {
 		nb1.setCurrentTaskList("Active Tasks");
 		assertEquals("Active Tasks", nb1.getCurrentTaskList().getTaskListName());
 		assertEquals(5, nb1.getCurrentTaskList().getTasks().size());
+		assertEquals(5, nb1.getCurrentTaskList().getTasksAsArray().length);
 		
 		assertEquals("School", nb1.getNotebookName());
 		
