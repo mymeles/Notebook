@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import edu.ncsu.csc216.wolf_tasks.model.util.ISortedList;
+import edu.ncsu.csc216.wolf_tasks.model.util.SortedList;
+
 /**
  * Tests for TaskList class
  *
@@ -79,9 +82,18 @@ public class TaskListTest {
 	 */
 	@Test
 	public void testCompareTo() {
-		TaskList list1 = new TaskList("Party", 21);
+		TaskList list1 = new TaskList("Party", 21); 
 		TaskList list2 = new TaskList("School", 14);
 		TaskList list3 = new TaskList("Church", 7);
+		TaskList list4 = new TaskList("Apple", 7);
+		
+		ISortedList<TaskList> lists = new SortedList<TaskList>();
+		lists.add(list1);
+		lists.add(list2);
+		lists.add(list3);
+		lists.add(list4);
+
+		assertTrue(list4.getTaskListName().equals(lists.get(0).getTaskListName()));
 		
 		assertTrue(list1.compareTo(list2) < 0);
 		assertTrue(list1.compareTo(list3) > 0);

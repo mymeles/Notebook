@@ -42,4 +42,4 @@ public class TaskList extends AbstractTaskList implements Comparable<TaskList> {
 	public int compareTo(TaskList list) {
 		return this.getTaskListName().compareTo(list.getTaskListName());
 	}
-}
+} 

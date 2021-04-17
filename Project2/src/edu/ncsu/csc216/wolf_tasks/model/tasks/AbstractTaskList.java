@@ -33,7 +33,7 @@ public abstract class AbstractTaskList {
 		setTaskListName(taskListName);
 		setCompletedCount(completedCount);
 		tasks = new SwapList<Task>();
-	
+
 	}
 
 	/**
@@ -50,34 +50,35 @@ public abstract class AbstractTaskList {
 	 * 
 	 * @param taskListName name of the task list
 	 * 
-	 * @throws IllegalArgumentException if the lists name is empty or null. 
+	 * @throws IllegalArgumentException if the lists name is empty or null.
 	 */
 	public void setTaskListName(String taskListName) {
-		if(taskListName == null || "".equals(taskListName)) {
+		if (taskListName == null || "".equals(taskListName)) {
 			throw new IllegalArgumentException("Invalid name.");
-		}
-		else {
+		} else {
 			this.taskListName = taskListName;
 		}
-		
+
 	}
-	
+
 	/**
 	 * A method that sets the completed count.
+	 * 
 	 * @param count is an integer that represents completed count;
 	 * 
-	 * @throws IllegalArgumentException if the the completed count is less than zero.
+	 * @throws IllegalArgumentException if the the completed count is less than
+	 *                                  zero.
 	 */
 	private void setCompletedCount(int count) {
-		if(count < 0) {
+		if (count < 0) {
 			throw new IllegalArgumentException("Invalid completed count.");
-		} else{
+		} else {
 			this.completedCount = count;
 		}
 	}
 
 	/**
-	 * Returns activetask lists list of tasks 
+	 * Returns activetask lists list of tasks
 	 * 
 	 * @return list of tasks
 	 */
@@ -96,9 +97,10 @@ public abstract class AbstractTaskList {
 
 	/**
 	 * Adds the Task to the end of the list. The current instance of the TaskList
-	 * adds itself to the Task (use the keyword this).
-	 * When a Task is added to a TaskList the TaskList will add itself to the Task via the addTaskList() method.
-
+	 * adds itself to the Task (use the keyword this). When a Task is added to a
+	 * TaskList the TaskList will add itself to the Task via the addTaskList()
+	 * method.
+	 * 
 	 * 
 	 * @param task task to add to list
 	 * 
@@ -106,7 +108,7 @@ public abstract class AbstractTaskList {
 	 */
 	public void addTask(Task task) {
 		tasks.add(task);
-		//add list to task
+		// add list to task
 		task.addTaskList(this);
 	}
 
@@ -134,7 +136,7 @@ public abstract class AbstractTaskList {
 	 * Finds the given Task in the list and removes it. The completedCount is
 	 * incremented.
 	 * 
-	 * @param task task that will be set as complete
+	 * @param task task that will be set as complete.
 	 */
 	public void completeTask(Task task) {
 		for(int i = 0; i < tasks.size(); i++) {

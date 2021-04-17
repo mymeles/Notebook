@@ -27,7 +27,7 @@ public class NotebookTest {
 			nb = new Notebook("");
 		} catch (IllegalArgumentException e) {
 			assertEquals("Invalid name.", e.getMessage());
-		}
+		} 
 		nb = new Notebook("Notebook");
 		assertEquals("Notebook", nb.getNotebookName());
 		assertEquals("Active Tasks", nb.getCurrentTaskList().getTaskListName());
@@ -114,10 +114,10 @@ public class NotebookTest {
 		nb.editTaskList("CSC216");
 		assertEquals("CSC216", nb.getCurrentTaskList().getTaskListName());
 		assertTrue(nb.isChanged());
-		// test editing with invalid name
+		// test editing with invalid name 
 		try {
 			nb.editTaskList("");
-		} catch (IllegalArgumentException e) {
+		} catch (IllegalArgumentException e) { 
 			assertEquals("Invalid name.", e.getMessage());
 		}
 		try {

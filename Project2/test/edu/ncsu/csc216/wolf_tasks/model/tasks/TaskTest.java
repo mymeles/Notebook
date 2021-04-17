@@ -18,79 +18,44 @@ public class TaskTest {
 	 */
 	@Test
 	public void testTask() {
-		fail("Not yet implemented");
-	}
+		Task task1 = null;
+		task1 = new Task("HomeWork", "Do it now", false, false);
+		assertEquals("HomeWork", task1.getTaskName());
+		assertEquals("Do it now", task1.getTaskDescription());
+		assertFalse(task1.isActive());
+		assertFalse(task1.isRecurring());
+		assertTrue(task1.getTaskListName().equals(""));
 
-	/**
-	 * Tests the getTaskName() method
-	 */
-	@Test
-	public void testGetTaskName() {
-		fail("Not yet implemented");
-	}
+		// trying to add with null task name
+		task1 = null;
+		try {
+			task1 = new Task(null, "Do it now", false, false);
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals("Incomplete task information.", e.getMessage());
+			assertNull(task1);
+		}
 
-	/**
-	 * Tests the setTaskName() method
-	 */
-	@Test
-	public void testSetTaskName() {
-		fail("Not yet implemented");
-	}
+		// trying to create a task with empty string
+		// trying to add with null task name
+		try {
+			task1 = new Task("", "Do it now", false, false);
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals("Incomplete task information.", e.getMessage());
+			assertNull(task1);
+		}
 
-	/**
-	 * Tests the getTaskDescription() method
-	 */
-	@Test
-	public void testGetTaskDescription() {
-		fail("Not yet implemented");
-	}
+		// trying to create a task with null description
+		task1 = null;
+		try {
+			task1 = new Task("HomeWork", null, false, false);
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals("Incomplete task information.", e.getMessage());
+			assertNull(task1);
+		}
 
-	/**
-	 * Tests the setTaskDescription() method
-	 */
-	@Test
-	public void testSetTaskDescription() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Tests the isRecurring() method
-	 */
-	@Test
-	public void testIsRecurring() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Tests the setRecurring() method
-	 */
-	@Test
-	public void testSetRecurring() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Tests the isActive() method
-	 */
-	@Test
-	public void testIsActive() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Tests the setActive() method
-	 */
-	@Test
-	public void testSetActive() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Tests the getTaskListName() method
-	 */
-	@Test
-	public void testGetTaskListName() {
-		fail("Not yet implemented");
 	}
 
 	/**
@@ -98,7 +63,23 @@ public class TaskTest {
 	 */
 	@Test
 	public void testAddTaskList() {
-		fail("Not yet implemented");
+		Task task = new Task("CSC 126", "description", true, false);
+		TaskList list1 = new TaskList("list", 0);
+
+		// testing empty task list name by default
+		assertEquals("", task.getTaskListName());
+
+		task.addTaskList(list1);
+
+		// testing list name after adding a task list to task
+		assertEquals("list", task.getTaskListName());
+
+		// a null abstracttaskList
+		try {
+			task.addTaskList(null);
+		} catch (IllegalArgumentException e) {
+			assertEquals("Incomplete task information.", e.getMessage());
+		}
 	}
 
 	/**
@@ -106,7 +87,41 @@ public class TaskTest {
 	 */
 	@Test
 	public void testCompleteTask() {
-		fail("Not yet implemented");
+		Task task = new Task("CSC 126", "description", true, false);
+		TaskList list1 = new TaskList("list", 0);
+
+		Task task0 = new Task("CSC126", "description", true, false);
+
+		// ???????
+		list1.addTask(task);
+		list1.addTask(task0);
+		task.addTaskList(list1);
+		task0.addTaskList(list1);
+		assertEquals(2, list1.getTasks().size());
+		// ???????
+		task.completeTask();
+		task0.completeTask();
+		assertEquals(2, list1.getCompletedCount());
+		assertEquals(2, list1.getTasks().size()); // size should still be 1 because task is recurring
+
+		TaskList list0 = new TaskList("list0", 0);
+
+		Task task1 = new Task("Task 1", "Task 1 Description", false, false);
+		Task task2 = new Task("Task 2", "Task 2 Description", true, false);
+		Task task3 = new Task("Task 3", "Task 3 Description", true, true);
+		Task task4 = new Task("Task 4", "Task 4 Description", true, false);
+		Task task5 = new Task("Task 5", "Task 5 Description", false, true);
+
+		list0.addTask(task1);
+		list0.addTask(task2);
+		list0.addTask(task3);
+		list0.addTask(task4);
+		list0.addTask(task5);
+
+		assertEquals(5, list0.getTasksAsArray().length);
+		task5.completeTask();
+		task3.completeTask();
+		assertEquals(4, list0.getTasksAsArray().length);
 	}
 
 	/**
@@ -114,43 +129,49 @@ public class TaskTest {
 	 */
 	@Test
 	public void testClone() {
-		Task task = new Task("CSC 126", "description", true, false);
 		TaskList list = new TaskList("list", 0);
-		
+
+		Task task = new Task("CSC 126", "description", true, false);
 		Task task0 = new Task("CSC126", "description", true, false);
-		
-		//???????
-		list.addTask(task);
-		list.addTask(task0);
-		task.addTaskList(list);
-		task0.addTaskList(list);
-		assertEquals(2, list.getTasks().size());
-		//???????
-		task.completeTask();
-		task0.completeTask();
-		assertEquals(2, list.getCompletedCount());
-		assertEquals(2, list.getTasks().size()); //size should still be 1 because task is recurring
-		
-		TaskList list0 = new TaskList("list0", 0);
-		
 		Task task1 = new Task("Task 1", "Task 1 Description", false, false);
 		Task task2 = new Task("Task 2", "Task 2 Description", true, false);
-		Task task3 = new Task("Task 3", "Task 3 Description", true, true);
-		Task task4 = new Task("Task 4", "Task 4 Description", true, false);
-		Task task5 = new Task("Task 5", "Task 5 Description", false, true);
-		
-		list0.addTask(task1);
-		list0.addTask(task2);
-		list0.addTask(task3);
-		list0.addTask(task4);
-		list0.addTask(task5);
-		
-		assertEquals(5, list0.getTasksAsArray().length);
-		task5.completeTask();
-		task3.completeTask();
-		assertEquals(4, list0.getTasksAsArray().length);
+
+		task1.addTaskList(list);
+		task2.addTaskList(list);
+
+		Task clone = null;
+		try {
+			clone = task.clone();
+			assertTrue(task == clone);
+			assertEquals("CSC 216", clone.getTaskName());
+		} catch (CloneNotSupportedException c) {
+			//
+		}
+
+		try {
+			clone = task0.clone();
+			assertTrue(task0 == clone);
+		} catch (CloneNotSupportedException c) {
+			//
+		}
+
+		// cloning when we add a list to task
+		try {
+			clone = task1.clone();
+			assertTrue(task1 == clone);
+		} catch (CloneNotSupportedException c) {
+			//
+		}
+
+		// testing cloning when we add a list to
+		try {
+			clone = task2.clone();
+			assertTrue(task2 == clone);
+		} catch (CloneNotSupportedException c) {
+			//
+		}
 	}
- 
+
 	/**
 	 * Tests the toString() method
 	 */
@@ -158,7 +179,7 @@ public class TaskTest {
 	public void testToString() {
 		Task task1 = new Task("name", "description", false, false);
 		assertEquals("* name\n" + "description", task1.toString());
-		
+
 		Task task2 = new Task("name", "description", true, false);
 		assertEquals("* name,recurring\n" + "description", task2.toString());
 

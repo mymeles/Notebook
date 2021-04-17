@@ -10,7 +10,7 @@ import edu.ncsu.csc216.wolf_tasks.model.notebook.Notebook;
 import edu.ncsu.csc216.wolf_tasks.model.tasks.ActiveTaskList;
 
 /**
- * Test for NotebookReader class
+ * Test for NotebookReader class.
  * @author Helen Solomon
  * @author Meles Meles
  */
@@ -23,7 +23,7 @@ public class NotebookReaderTest {
 	/**
 	 * valid test file
 	 */
-	public static final File VALID2 = new File("test-files/notebook0.txt");
+	public static final File VALID2 = new File("test-files/notebook0.txt"); 
 	/**
 	 * valid test file
 	 */
@@ -73,6 +73,7 @@ public class NotebookReaderTest {
 		assertEquals("CSC 216", nb1.getTaskListsNames()[1]);
 		assertEquals("CSC 226", nb1.getTaskListsNames()[2]);
 		assertEquals("Habits", nb1.getTaskListsNames()[3]);
+		assertEquals(5, nb1.getCurrentTaskList().getTasksAsArray().length);
 		
 		assertEquals("Habits", nb1.getCurrentTaskList().getTaskListName());
 		nb1.setCurrentTaskList("Active Tasks");

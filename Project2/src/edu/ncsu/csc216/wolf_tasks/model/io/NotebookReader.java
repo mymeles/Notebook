@@ -57,7 +57,7 @@ public class NotebookReader {
 			while (scanBook.hasNext()) {
 				//process this group of task lists
 				String line = scanBook.next().trim();
-				list = processTaskList(line);
+				list = processTaskList(line); 
 //				if (list != null) {
 //					nb.addTaskList(list);
 //				}
