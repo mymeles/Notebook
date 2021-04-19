@@ -136,12 +136,12 @@ public class Notebook {
 	public String[] getTaskListsNames() {
 		String[] lists = new String[taskLists.size() + 1];
 		if (taskLists.size() == 0) {
-			lists = new String[1];
+//			lists = new String[1];
 			lists[0] = activeTaskList.getTaskListName();
-			return lists;
+///			return lists;
 		} else {
+			lists[0] = activeTaskList.getTaskListName();
 			for (int i = 0; i < taskLists.size(); i++) {
-				lists[0] = activeTaskList.getTaskListName();
 				lists[i + 1] = taskLists.get(i).getTaskListName();
 			}
 		}
@@ -211,17 +211,15 @@ public class Notebook {
 			throw new IllegalArgumentException("Invalid name.");
 
 		if (currentTaskList.getTaskListName().compareToIgnoreCase(taskListName) == 0)
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Invalid name.");
 
 		isDuplicate(taskListName);
-		for (int i = 0; i < taskLists.size(); i++) {
-			if (currentTaskList.getTaskListName().compareToIgnoreCase(taskLists.get(i).getTaskListName()) == 0) {
-				taskLists.get(i).setTaskListName(taskListName);
-				setChanged(true);
-				return;
-			}
-		}
+		currentTaskList.setTaskListName(taskListName);
+		setCurrentTaskList(taskListName);
+		setChanged(true);
+		return;
 	}
+
 
 
 	/**

@@ -183,7 +183,7 @@ public class NotebookTest {
 
 		TaskList list = new TaskList("CSC 216", 5);
 		nb.addTaskList(list);
-		assertEquals(2, nb.getTaskListsNames().length);
+		assertEquals(2, nb.getTaskListsNames().length); 
 		assertEquals("CSC 216", nb.getCurrentTaskList().getTaskListName());
 
 		TaskList list2 = new TaskList("School", 5);
@@ -204,5 +204,13 @@ public class NotebookTest {
 		assertEquals("On the field", nb.getCurrentTaskList().getTask(0).getTaskDescription());
 
 	}
+	
+//	/**
+//	 * Tests the editTask() method
+//	 */
+//	@Test
+//	public void testEditTask1() {
+//		
+//	}
 
 }
