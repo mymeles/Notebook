@@ -213,14 +213,16 @@ public class Notebook {
 		if (currentTaskList.getTaskListName().compareToIgnoreCase(taskListName) == 0)
 			throw new IllegalArgumentException();
 
-		if (currentTaskList instanceof ActiveTaskList)
-			throw new IllegalArgumentException("The Active Tasks list may not be edited.");
-
 		isDuplicate(taskListName);
-		currentTaskList.setTaskListName(taskListName);
-		setChanged(true);
-
+		for (int i = 0; i < taskLists.size(); i++) {
+			if (currentTaskList.getTaskListName().compareToIgnoreCase(taskLists.get(i).getTaskListName()) == 0) {
+				taskLists.get(i).setTaskListName(taskListName);
+				setChanged(true);
+				return;
+			}
+		}
 	}
+
 
 	/**
 	 * A method that removes the currentTask list and then sets to the
