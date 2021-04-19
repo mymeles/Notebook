@@ -74,6 +74,12 @@ public class NotebookReaderTest {
 		assertEquals("CSC 226", nb1.getTaskListsNames()[2]);
 		assertEquals("Habits", nb1.getTaskListsNames()[3]);
 
+		
+		assertEquals("Active Tasks", nb1.getCurrentTaskList().getTaskListName());
+		assertEquals(5, nb1.getCurrentTaskList().getTasks().size());
+		assertEquals(5, nb1.getCurrentTaskList().getTasksAsArray().length);
+		
+		nb1.setCurrentTaskList("Habits");
 		assertEquals("Habits", nb1.getCurrentTaskList().getTaskListName());
 		assertEquals(2, nb1.getCurrentTaskList().getTasks().size());
 
@@ -84,11 +90,7 @@ public class NotebookReaderTest {
 		nb1.setCurrentTaskList("CSC 226");
 		assertEquals("CSC 226", nb1.getCurrentTaskList().getTaskListName());
 		assertEquals(5, nb1.getCurrentTaskList().getTasks().size());
-		
-		nb1.setCurrentTaskList("Active Tasks");
-		assertEquals("Active Tasks", nb1.getCurrentTaskList().getTaskListName());
-		assertEquals(5, nb1.getCurrentTaskList().getTasks().size());
-		assertEquals(5, nb1.getCurrentTaskList().getTasksAsArray().length);
+
 		
 		assertEquals("School", nb1.getNotebookName());
 		
@@ -107,6 +109,11 @@ public class NotebookReaderTest {
 		assertEquals("CSC 226", nb3.getTaskListsNames()[2]);
 		assertEquals("Habits", nb3.getTaskListsNames()[3]);
 		
+		
+		assertEquals("Active Tasks", nb3.getCurrentTaskList().getTaskListName());
+		assertEquals(3, nb3.getCurrentTaskList().getTasks().size());
+		
+		nb3.setCurrentTaskList("Habits");
 		assertEquals("Habits", nb3.getCurrentTaskList().getTaskListName());
 		assertEquals("School", nb3.getNotebookName());
 		
@@ -135,17 +142,19 @@ public class NotebookReaderTest {
 
 		//test an invalid file, task has no name
 		Notebook nb8 = NotebookReader.readNodebookFile(INVALID5);
-//		assertEquals(2, nb8.getTaskListsNames().length);
+		assertEquals(2, nb8.getTaskListsNames().length);
 		assertEquals("Active Tasks", nb8.getTaskListsNames()[0]);
 		assertEquals("Habits", nb8.getTaskListsNames()[1]);
 
+		
+		assertEquals("Active Tasks", nb8.getCurrentTaskList().getTaskListName());
+		assertEquals(1, nb8.getCurrentTaskList().getTasks().size());
+		assertEquals(1, nb8.getCurrentTaskList().getTasksAsArray().length);
+		
+		nb8.setCurrentTaskList("Habits");
 		assertEquals("Habits", nb8.getCurrentTaskList().getTaskListName());
 		assertEquals(3, nb8.getCurrentTaskList().getCompletedCount());
 		assertEquals(1, nb8.getCurrentTaskList().getTasks().size());
-		nb8.setCurrentTaskList(ActiveTaskList.ACTIVE_TASKS_NAME);
-		assertEquals("Active Tasks", nb8.getCurrentTaskList().getTaskListName());
-		assertEquals(1, nb8.getCurrentTaskList().getTasks().size());
-
 
 	}
 }

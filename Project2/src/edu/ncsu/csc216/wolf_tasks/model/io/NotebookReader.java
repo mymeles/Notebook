@@ -67,6 +67,9 @@ public class NotebookReader {
 			throw new IllegalArgumentException("File not found");
 		}
 		//if all is successful, return the lists
+		
+		//set the default current tasklist to Active Tasks
+		nb.setCurrentTaskList("Active Tasks");
 		return nb;
 	}
 
