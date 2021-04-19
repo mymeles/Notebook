@@ -211,7 +211,7 @@ public class Notebook {
 			throw new IllegalArgumentException("Invalid name.");
 
 		if (currentTaskList.getTaskListName().compareToIgnoreCase(taskListName) == 0)
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Invalid name.");
 
 		isDuplicate(taskListName);
 		for (int i = 0; i < taskLists.size(); i++) {
