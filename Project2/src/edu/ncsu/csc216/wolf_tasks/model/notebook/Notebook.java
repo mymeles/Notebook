@@ -207,7 +207,7 @@ public class Notebook {
 				|| taskListName.compareToIgnoreCase(ActiveTaskList.ACTIVE_TASKS_NAME) == 0) {
 			throw new IllegalArgumentException("Invalid name.");
 		}
-		if (currentTaskList.getTaskListName().compareToIgnoreCase(ActiveTaskList.ACTIVE_TASKS_NAME) == 0) {
+		if (currentTaskList instanceof ActiveTaskList) {
 			throw new IllegalArgumentException("The Active Tasks list may not be edited.");
 		}
 		isDuplicate(taskListName);
