@@ -8,6 +8,7 @@ import edu.ncsu.csc216.wolf_tasks.model.tasks.ActiveTaskList;
 import edu.ncsu.csc216.wolf_tasks.model.tasks.Task;
 import edu.ncsu.csc216.wolf_tasks.model.tasks.TaskList;
 import edu.ncsu.csc216.wolf_tasks.model.util.ISortedList;
+import edu.ncsu.csc216.wolf_tasks.model.util.ISwapList;
 import edu.ncsu.csc216.wolf_tasks.model.util.SortedList;
 
 /**
@@ -152,7 +153,16 @@ public class Notebook {
 	 * 
 	 */
 	private void getActiveTaskList() {
-		///
+		activeTaskList.clearTasks();
+
+		for (int i = 0; i < taskLists.size(); i++) {
+			ISwapList<Task> tasks = taskLists.get(i).getTasks();
+			for (int j = 0; j < tasks.size(); j++) {
+				if (tasks.get(j).isActive()) {
+					activeTaskList.addTask(tasks.get(j));
+				}
+			}
+		}
 	}
 
 	/**
@@ -163,13 +173,19 @@ public class Notebook {
 	 * @param listName a string that holds taskName
 	 */
 	public void setCurrentTaskList(String listName) {
+
+		boolean flag = false;
 		for (int i = 0; i < taskLists.size(); i++) {
+
 			if (listName.equals(taskLists.get(i).getTaskListName())) {
 				currentTaskList = taskLists.get(i);
-				return;
+				flag = true;
 			}
 		}
-		currentTaskList = activeTaskList;
+		if (!flag) {
+			getActiveTaskList();
+			currentTaskList = activeTaskList;
+		}
 	}
 
 	/**
@@ -201,7 +217,7 @@ public class Notebook {
 
 	/**
 	 * A method that removes the currentTask list and then sets to the
-	 * activeTaskList and also the boolean isChaged is updated to true. 
+	 * activeTaskList and also the boolean isChaged is updated to true.
 	 */
 	public void removeTaskList() {
 		if (currentTaskList.getTaskListName().compareToIgnoreCase(ActiveTaskList.ACTIVE_TASKS_NAME) == 0) {
@@ -223,7 +239,6 @@ public class Notebook {
 	 * @param t is a Task
 	 */
 	public void addTask(Task t) {
-		// ?????? where do we use getActiveTaskList() here ???????
 		if (!(currentTaskList instanceof TaskList)) {
 			return;
 		} else {
@@ -234,7 +249,7 @@ public class Notebook {
 		}
 		setChanged(true);
 
-		getActiveTaskList(); // unimplemented
+//		getActiveTaskList(); // unimplemented
 	}
 
 	/**
