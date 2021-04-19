@@ -203,16 +203,23 @@ public class Notebook {
 	 * @param taskListName is a string value of a taskListName
 	 */
 	public void editTaskList(String taskListName) {
-		if (taskListName == null || "".equals(taskListName)
-				|| taskListName.compareToIgnoreCase(ActiveTaskList.ACTIVE_TASKS_NAME) == 0) {
-			throw new IllegalArgumentException("Invalid name.");
-		}
-		if (currentTaskList instanceof ActiveTaskList) {
+		if (currentTaskList instanceof ActiveTaskList)
 			throw new IllegalArgumentException("The Active Tasks list may not be edited.");
-		}
+
+		if (taskListName == null || "".equals(taskListName)
+				|| taskListName.compareToIgnoreCase(ActiveTaskList.ACTIVE_TASKS_NAME) == 0)
+			throw new IllegalArgumentException("Invalid name.");
+
+		if (currentTaskList.getTaskListName().compareToIgnoreCase(taskListName) == 0)
+			throw new IllegalArgumentException();
+
+		if (currentTaskList instanceof ActiveTaskList)
+			throw new IllegalArgumentException("The Active Tasks list may not be edited.");
+
 		isDuplicate(taskListName);
 		currentTaskList.setTaskListName(taskListName);
 		setChanged(true);
+
 	}
 
 	/**
