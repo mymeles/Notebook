@@ -125,6 +125,30 @@ public class NotebookTest {
 		} catch (IllegalArgumentException e) {
 			assertEquals("Invalid name.", e.getMessage());
 		}
+		Notebook lists = new Notebook("Notebook");
+		TaskList listA = new TaskList("A", 5);
+		TaskList listB = new TaskList("B", 5);
+		TaskList listC = new TaskList("C", 5);
+		TaskList listD = new TaskList("D", 5);
+		
+		lists.addTaskList(listA);
+		lists.addTaskList(listD);
+		lists.addTaskList(listC);
+		lists.addTaskList(listB);
+		
+		assertEquals("A", lists.getTaskListsNames()[1]);
+		assertEquals("B", lists.getTaskListsNames()[2]);
+		assertEquals("C", lists.getTaskListsNames()[3]);
+		assertEquals("D", lists.getTaskListsNames()[4]);
+		
+		assertEquals("B", lists.getCurrentTaskList().getTaskListName());
+		lists.editTaskList("DD");
+		
+		//check that sorted order is kept after changing name
+		assertEquals("A", lists.getTaskListsNames()[1]);
+		assertEquals("C", lists.getTaskListsNames()[2]);
+		assertEquals("D", lists.getTaskListsNames()[3]);
+		assertEquals("DD", lists.getTaskListsNames()[4]);
 	}
 
 	/**
@@ -183,7 +207,7 @@ public class NotebookTest {
 
 		TaskList list = new TaskList("CSC 216", 5);
 		nb.addTaskList(list);
-		assertEquals(2, nb.getTaskListsNames().length); 
+		assertEquals(2, nb.getTaskListsNames().length);
 		assertEquals("CSC 216", nb.getCurrentTaskList().getTaskListName());
 
 		TaskList list2 = new TaskList("School", 5);
@@ -204,13 +228,5 @@ public class NotebookTest {
 		assertEquals("On the field", nb.getCurrentTaskList().getTask(0).getTaskDescription());
 
 	}
-	
-//	/**
-//	 * Tests the editTask() method
-//	 */
-//	@Test
-//	public void testEditTask1() {
-//		
-//	}
 
 }
