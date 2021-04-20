@@ -145,7 +145,7 @@ public class Notebook {
 				lists[i + 1] = taskLists.get(i).getTaskListName();
 			}
 		}
- 
+
 		return lists;
 	}
 
@@ -215,15 +215,11 @@ public class Notebook {
 
 		isDuplicate(taskListName);
 		currentTaskList.setTaskListName(taskListName);
-		if(currentTaskList instanceof TaskList) {
-			taskLists.add((TaskList)currentTaskList);
-			setCurrentTaskList(taskListName);
-		}
+		setCurrentTaskList(taskListName);
+
 		setChanged(true);
 		return;
 	}
-
-
 
 	/**
 	 * A method that removes the currentTask list and then sets to the
