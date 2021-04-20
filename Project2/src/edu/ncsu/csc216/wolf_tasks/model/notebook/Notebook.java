@@ -129,7 +129,7 @@ public class Notebook {
 
 	/**
 	 * A method that Returns a list of task list names where the Active Tasks is
-	 * always listed first.
+	 * always listed first
 	 * 
 	 * @return an array of strings
 	 */
@@ -138,14 +138,14 @@ public class Notebook {
 		if (taskLists.size() == 0) {
 //			lists = new String[1];
 			lists[0] = activeTaskList.getTaskListName();
-///			return lists;
+///			return lists; 
 		} else {
 			lists[0] = activeTaskList.getTaskListName();
 			for (int i = 0; i < taskLists.size(); i++) {
 				lists[i + 1] = taskLists.get(i).getTaskListName();
 			}
 		}
-
+ 
 		return lists;
 	}
 
