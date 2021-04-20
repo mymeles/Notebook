@@ -215,7 +215,10 @@ public class Notebook {
 
 		isDuplicate(taskListName);
 		currentTaskList.setTaskListName(taskListName);
-		setCurrentTaskList(taskListName);
+		if(currentTaskList instanceof TaskList) {
+			taskLists.add((TaskList)currentTaskList);
+			setCurrentTaskList(taskListName);
+		}
 		setChanged(true);
 		return;
 	}
