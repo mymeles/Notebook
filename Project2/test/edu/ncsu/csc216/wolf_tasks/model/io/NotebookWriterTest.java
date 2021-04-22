@@ -26,7 +26,9 @@ public class NotebookWriterTest {
 	public void testWriteNotebookFile() {
 		//file to print to
 		File actFile = new File("test-files/notebook9.txt");
-		SortedList<TaskList> sl = new SortedList<TaskList>();
+
+		File actFile1 = new File("test-fidjsdjjdles/nohfhfhftebook9.txt");
+SortedList<TaskList> sl = new SortedList<TaskList>();
 		TaskList list1 = new TaskList("ATaskList", 0);
 		TaskList list2 = new TaskList("Tasks1", 0);
 		TaskList list3 = new TaskList("Tasks2", 0);
@@ -58,6 +60,14 @@ public class NotebookWriterTest {
 			//check that the file contents are identical
 			assertEquals(nb.getTaskListsNames()[i + 1], sl.get(i).getTaskListName());
 		}
+		
+		try {
+			NotebookWriter.writeNotebookFile(actFile1, "notebook", sl);
+			fail();
+		} catch(IllegalArgumentException e) {
+			assertEquals("Unable to save file.", e.getMessage());
+		}
+		
 	}
 
 }
