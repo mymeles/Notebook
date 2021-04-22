@@ -13,10 +13,10 @@ public class ActiveTaskList extends AbstractTaskList {
 	public static final String ACTIVE_TASKS_NAME = "Active Tasks";
 
 	/**
-	 * Constructor for the active task list
-	 * 
-	 * @param taskListName   name of task list
-	 * @param completedCount number of completed tasks
+	 * Constructor for the active task list. it sets the name to of the Active list
+	 * to "Active Tasks" and sets the size of the list to 0. the constructor
+	 * utilizers the word super to call attention to AbstractTaskList's
+	 * constructor
 	 */
 	public ActiveTaskList() {
 		super(ACTIVE_TASKS_NAME, 0);
@@ -45,7 +45,7 @@ public class ActiveTaskList extends AbstractTaskList {
 	 */
 	@Override
 	public void setTaskListName(String taskListName) {
-		if (taskListName == ACTIVE_TASKS_NAME) { 
+		if (taskListName == ACTIVE_TASKS_NAME) {
 			super.setTaskListName(taskListName);
 		} else {
 			throw new IllegalArgumentException("The Active Tasks list may not be edited.");
@@ -58,7 +58,7 @@ public class ActiveTaskList extends AbstractTaskList {
 	 * @return 2D array of tasks in list
 	 */
 	public String[][] getTasksAsArray() {
-		String[][] taskArray = new String[super.getTasks().size()][2]; 
+		String[][] taskArray = new String[super.getTasks().size()][2];
 		for (int i = 0; i < super.getTasks().size(); i++) {
 			taskArray[i][0] = super.getTasks().get(i).getTaskListName();
 			taskArray[i][1] = super.getTasks().get(i).getTaskName();
@@ -70,11 +70,11 @@ public class ActiveTaskList extends AbstractTaskList {
 	 * Clears the ActiveTaskList of all Tasks
 	 */
 	public void clearTasks() {
-		//store the original size so that we can reach all tasks in listS
+		// store the original size so that we can reach all tasks in listS
 		int size = super.getTasks().size();
 		for (int i = size - 1; i >= 0; i--) {
 			super.getTasks().remove(i);
 		}
 	}
- 
+
 }

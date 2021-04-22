@@ -5,6 +5,13 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+/**
+ * A Test class for SortedList.java
+ * 
+ * @author Meles Meles
+ * @author Helen Solomon
+ *
+ */
 public class SortedListTest {
 
 	/**
@@ -17,7 +24,7 @@ public class SortedListTest {
 		assertEquals(2, (int) (int1.get(0)));
 		assertEquals(1, int1.size());
 		int1.add(1);
-		
+
 		assertEquals(1, (int) (int1.get(0)));
 		assertEquals(2, (int) (int1.get(1)));
 		assertEquals(2, int1.size());
@@ -53,7 +60,7 @@ public class SortedListTest {
 		assertEquals(2, (int) (int1.get(0)));
 		assertEquals(1, int1.size());
 		int1.add(1);
-		
+
 		assertEquals(1, (int) (int1.get(0)));
 		assertEquals(2, (int) (int1.get(1)));
 		assertEquals(2, int1.size());
@@ -103,8 +110,8 @@ public class SortedListTest {
 			assertEquals(5, (int) (int1.get(4)));
 			assertEquals(5, int1.size());
 		}
-		
-	// to get elements at non-exasisitng index 
+
+		// to get elements at non-exasisitng index
 		try {
 			int1.get(10);
 			fail();
@@ -120,6 +127,9 @@ public class SortedListTest {
 
 	}
 
+	/**
+	 * Testing SoretdList.remove()
+	 */
 	@Test
 	public void testRemove() {
 		// testing valid inputs
@@ -173,9 +183,5 @@ public class SortedListTest {
 		assertEquals(2, (int) (int1.get(0)));
 		assertEquals(4, (int) (int1.get(1)));
 		assertEquals(2, int1.size());
-
 	}
-
-
-
 }

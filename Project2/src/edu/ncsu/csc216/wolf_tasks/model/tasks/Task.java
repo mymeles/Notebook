@@ -220,7 +220,7 @@ public class Task implements Cloneable {
 		throw new CloneNotSupportedException("Cannot clone.");
 	}
 
-	/**
+	/** 
 	 * Returns a string representation of the Task for printing to a file.
 	 * 
 	 * @return fields of task in string format

@@ -61,7 +61,7 @@ public class NotebookReader {
 //				if (list != null) {
 //					nb.addTaskList(list);
 //				}
-			}
+			} 
 			scanBook.close();
 		} catch (FileNotFoundException e) {
 			throw new IllegalArgumentException("File not found");

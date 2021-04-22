@@ -1,6 +1,10 @@
 package edu.ncsu.csc216.wolf_tasks.model.util;
 
 /**
+ * A linked list implemented to add in a sorted order. in addition it implements
+ * the class Comparable so that when the SortedList is used the sorting
+ * Mechanism could be set to the users specifications. this class also
+ * implements an interface called ISortedList.
  * 
  * @author Meles Meles
  * @author Helen Solomon
@@ -15,6 +19,9 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	/** the front node of the SortedList */
 	private ListNode front;
 
+	/**
+	 * A constructor for Sorted list. Size is 0 and the element is null.
+	 */
 	public SortedList() {
 		this.size = 0;
 		this.front = null;
@@ -86,7 +93,7 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	}
 
 	/**
-	 * A method that checks the index of an element 
+	 * A method that checks the index of an element
 	 * 
 	 * @param idx is an integer
 	 */
@@ -100,7 +107,7 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	 * Returns true if the element is in the list.
 	 * 
 	 * @param element element to search for
-	 * @return true if element is found
+	 * @return boolean, true if element is found, otherwise false
 	 */
 	@Override
 	public boolean contains(E element) {

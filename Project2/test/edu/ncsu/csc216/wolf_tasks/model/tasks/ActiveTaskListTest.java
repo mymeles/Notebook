@@ -4,8 +4,17 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/**
+ * A Test class for ActiveTaskList class
+ * @author Meles Meles
+ * @author Helen Solomon
+ *
+ */
 public class ActiveTaskListTest {
  
+	/**
+	 * Testing ActiveTaskList constrcutor 
+	 */
 	@Test
 	public void testActiveTaskList() {
 
@@ -14,8 +23,11 @@ public class ActiveTaskListTest {
 		assertEquals("Active Tasks", active1.getTaskListName());
 		assertEquals(0, active1.getCompletedCount());
 
-	}
+	} 
 
+	/**
+	 * Testing ActiveTaskList.SetTaskListName()
+	 */
 	@Test
 	public void testSetTaskListName() {
 
@@ -32,6 +44,9 @@ public class ActiveTaskListTest {
 
 	}
 
+	/**
+	 * Testing ActiveTaskList.addTask()
+	 */
 	@Test
 	public void testAddTask() {
 		AbstractTaskList active1 = new ActiveTaskList();
@@ -47,6 +62,9 @@ public class ActiveTaskListTest {
 		
 	}
 
+	/**
+	 * Testing ActiveTaskList.getTasksAsArray()
+	 */
 	@Test
 	public void testGetTasksAsArray() {
 		AbstractTaskList active1 = new ActiveTaskList();
@@ -78,17 +96,39 @@ public class ActiveTaskListTest {
 		
 	}
 
+	/**
+	 * Testing ActiveTaskList.clearTasks()
+	 */
 	@Test
 	public void testClearTasks() {
 		ActiveTaskList active1 = new ActiveTaskList();
 		assertEquals("Active Tasks", active1.getTaskListName());
 		assertEquals(0, active1.getCompletedCount());
-
 		
 		Task task1 = new Task("HomeWork", "Do it today", false, true);
+		assertEquals("HomeWork", task1.getTaskName());
+		assertEquals("Do it today", task1.getTaskDescription());
+		assertFalse(task1.isRecurring());
+		assertTrue(task1.isActive());
+		
 		Task task2 = new Task("HomeWork1", "Do it today", false, true);
+		assertEquals("HomeWork1", task2.getTaskName());
+		assertEquals("Do it today", task2.getTaskDescription());
+		assertFalse(task2.isRecurring());
+		assertTrue(task2.isActive());
+		
 		Task task3 = new Task("HomeWork2", "Do it today", false, true);
+		assertEquals("HomeWork2", task3.getTaskName());
+		assertEquals("Do it today", task3.getTaskDescription());
+		assertFalse(task3.isRecurring());
+		assertTrue(task3.isActive());
+		
 		Task task4 = new Task("HomeWork3", "Do it today", false, true);
+		assertEquals("HomeWork3", task4.getTaskName());
+		assertEquals("Do it today", task4.getTaskDescription());
+		assertFalse(task4.isRecurring());
+		assertTrue(task4.isActive());
+		
 
 		active1.addTask(task4);
 		active1.addTask(task3);
