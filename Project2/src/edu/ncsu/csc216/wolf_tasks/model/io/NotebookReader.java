@@ -22,7 +22,7 @@ public class NotebookReader {
 	/**
 	 * Notebook that will contain the list elements
 	 */
-	public static Notebook nb; 
+	public static Notebook nb;
 
 	/**
 	 * A method that reads in a file of NoteBook.
@@ -33,50 +33,49 @@ public class NotebookReader {
 	public static Notebook readNodebookFile(File file) {
 		nb = null;
 		try {
-			//scan file
+			// scan file
 			Scanner scan = new Scanner(new FileInputStream(file));
-			//store contents into string, make a big string
+			// store contents into string, make a big string
 			String contents = "";
 			while (scan.hasNextLine()) {
 				contents += scan.nextLine() + "\n";
 			}
-			
+
 			if (contents.charAt(0) != '!') {
 				throw new IllegalArgumentException("Unable to load file.");
 			}
-			//scan the big string
+			// scan the big string
 			Scanner scanBook = new Scanner(contents);
-			//set the name of the notebook
+			// set the name of the notebook
 			scanBook.useDelimiter("\\r?\\n?[!]");
 			String bookName = scanBook.nextLine().substring(2);
 			nb = new Notebook(bookName);
-			
-			//split string into task list tokens
+
+			// split string into task list tokens
 			scanBook.useDelimiter("\\r?\\n?[#]");
-			
+
 			while (scanBook.hasNext()) {
-				//process this group of task lists
+				// process this group of task lists
 				String line = scanBook.next().trim();
-				processTaskList(line); 
+				processTaskList(line);
 //				if (list != null) {
 //					nb.addTaskList(list);
 //				}
-			} 
+			}
 			scanBook.close();
 		} catch (FileNotFoundException e) {
 			throw new IllegalArgumentException("File not found");
 		}
-		//if all is successful, return the lists
-		
-		//set the default current tasklist to Active Tasks
+		// if all is successful, return the lists
+
+		// set the default current tasklist to Active Tasks
 		nb.setCurrentTaskList("Active Tasks");
 		return nb;
 	}
 
-	 
 	/**
 	 * a method that helps NoteBook method into creating TaskList
-	 *                        
+	 * 
 	 * @param taskList a string that holds that holds taskList
 	 * @return a TaskList
 	 */
@@ -84,13 +83,13 @@ public class NotebookReader {
 		Task task = null;
 		TaskList list = null;
 		try {
-			//scan the task list
+			// scan the task list
 			Scanner scanList = new Scanner(taskList);
-			//get the name of the task list
+			// get the name of the task list
 			String listName = scanList.nextLine().trim();
 			Scanner scnrName = new Scanner(listName);
 			scnrName.useDelimiter(",");
-			//split into task list name and completed count
+			// split into task list name and completed count
 			String name = scnrName.next().trim();
 			int count = 0;
 			if (scnrName.hasNextInt()) {
@@ -101,19 +100,19 @@ public class NotebookReader {
 				return list;
 			}
 			scnrName.close();
-			//construct a task list
+			// construct a task list
 			list = new TaskList(name, count);
 			nb.addTaskList(list);
-			//adding the list will make it the current list, making it easier to add tasks
-			//get the task tokens
+			// adding the list will make it the current list, making it easier to add tasks
+			// get the task tokens
 			scanList.useDelimiter("\\r?\\n?[*]");
 			while (scanList.hasNext()) {
 				String taskData = scanList.next().trim();
 				task = processTask(list, taskData);
 				if (task != null) {
-					//this add method doesn't add task to active ???
-					//i want to use the notebooks add method but can't ?!!!!    D:
-					//list.addTask(task);
+					// this add method doesn't add task to active ???
+					// i want to use the notebooks add method but can't ?!!!! D:
+					// list.addTask(task);
 					nb.addTask(task);
 				}
 			}
@@ -123,11 +122,12 @@ public class NotebookReader {
 		}
 		return list;
 	}
-	
 
 	/**
-	 * takes in a list of AbstractTaskList and and taskDiscription and returns a Task
-	 * @param taskList a list of Abstract List     
+	 * Takes in a list of AbstractTaskList and and taskDiscription and returns a
+	 * Task
+	 * 
+	 * @param taskList a list of Abstract List
 	 * @param taskData a string that holds a tasks description
 	 * @return returns a Task
 	 */
@@ -136,10 +136,10 @@ public class NotebookReader {
 		boolean recurring = false;
 		boolean active = false;
 		Scanner scan = new Scanner(taskData);
-		//first line will be the task name and the states
+		// first line will be the task name and the states
 		String taskDetails = scan.nextLine().trim();
-		
-		//get task name and status
+
+		// get task name and status
 		Scanner scanDetails = new Scanner(taskDetails);
 		scanDetails.useDelimiter(",");
 		String name = scanDetails.next().trim();
@@ -149,27 +149,27 @@ public class NotebookReader {
 			return null;
 		}
 		String state = "";
-		
+
 		while (scanDetails.hasNext()) {
 			state += " " + scanDetails.next();
 		}
 		scanDetails.close();
-		
+
 		if (state.contains("recurring")) {
 			recurring = true;
 		}
 		if (state.contains("active")) {
 			active = true;
 		}
-		
+
 		String taskDescription = "";
 		while (scan.hasNextLine()) {
 			taskDescription += scan.nextLine() + "\n";
 		}
 		scan.close();
-		
+
 		task = new Task(name, taskDescription, recurring, active);
-		
+
 		return task;
 	}
 }

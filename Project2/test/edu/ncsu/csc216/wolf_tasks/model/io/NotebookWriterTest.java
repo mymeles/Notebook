@@ -24,11 +24,11 @@ public class NotebookWriterTest {
 	 */
 	@Test
 	public void testWriteNotebookFile() {
-		//file to print to
+		// file to print to
 		File actFile = new File("test-files/notebook9.txt");
 
 		File actFile1 = new File("test-fidjsdjjdles/nohfhfhftebook9.txt");
-SortedList<TaskList> sl = new SortedList<TaskList>();
+		SortedList<TaskList> sl = new SortedList<TaskList>();
 		TaskList list1 = new TaskList("ATaskList", 0);
 		TaskList list2 = new TaskList("Tasks1", 0);
 		TaskList list3 = new TaskList("Tasks2", 0);
@@ -42,7 +42,7 @@ SortedList<TaskList> sl = new SortedList<TaskList>();
 		list3.addTask(task3);
 		list3.addTask(task4);
 		list3.addTask(task5);
-		
+
 		sl.add(list1);
 		sl.add(list2);
 		sl.add(list3);

@@ -3,7 +3,6 @@
  */
 package edu.ncsu.csc216.wolf_tasks.model.tasks;
 
-
 import edu.ncsu.csc216.wolf_tasks.model.util.ISwapList;
 import edu.ncsu.csc216.wolf_tasks.model.util.SwapList;
 
@@ -38,6 +37,10 @@ public class Task implements Cloneable {
 	 * @param taskDescription description of task
 	 * @param recurring       recurring state of task
 	 * @param active          active state of class
+	 * 
+	 * @throws IllegalArgumentException with the message "Incomplete task
+	 *                                  information." if either taskName or
+	 *                                  TaskDiscription are null or empty.
 	 */
 	public Task(String taskName, String taskDescription, boolean recurring, boolean active) {
 		setTaskName(taskName);
@@ -61,6 +64,8 @@ public class Task implements Cloneable {
 	 * empty string with message "Incomplete task information."
 	 * 
 	 * @param taskName name of task
+	 * 
+	 * @throws IllegalArgumentException if the taskName is null or empty
 	 */
 	public void setTaskName(String taskName) {
 		if (taskName == null || "".equals(taskName)) {
@@ -83,6 +88,9 @@ public class Task implements Cloneable {
 	 * if null with message "Incomplete task information."
 	 * 
 	 * @param taskDescription description of task
+	 * 
+	 * @throws IllegalArgumentException with the message "Incomplete task
+	 *                                  information."
 	 */
 	public void setTaskDescription(String taskDescription) {
 		if (taskDescription == null) {
@@ -128,9 +136,9 @@ public class Task implements Cloneable {
 	}
 
 	/**
-	 * Gets the name of list task is in
+	 * Retrieves the taskList name from the taskLists at index 0.
 	 * 
-	 * @return task list name
+	 * @return A string if a TaskList name
 	 */
 	public String getTaskListName() {
 		if (taskLists == null || taskLists.size() == 0) {
@@ -141,10 +149,12 @@ public class Task implements Cloneable {
 	}
 
 	/**
-	 * ???????????????????????????????? Adds task list to notebook
+	 * Adds AbstractTaskLists to the classes taskLists.
 	 * 
-	 * @param list list to be added to notebook
-	 * @throws IllegalArgumentException if list to be added is null
+	 * @param list AbstractTaskList to be added to taskLists
+	 * 
+	 * @throws IllegalArgumentException with the message "Incomplete task
+	 *                                  information.", if the list is null.
 	 */
 	public void addTaskList(AbstractTaskList list) {
 		if (list == null) {
@@ -153,7 +163,7 @@ public class Task implements Cloneable {
 		// check that the list exists within taskLists
 		for (int i = 0; i < taskLists.size(); i++) {
 			if (list.getTaskListName().equals(taskLists.get(i).getTaskListName())) {
-				return; // throw an exception 
+				return; // throw an exception
 			}
 		}
 		// if list doesn't exist in taskLists, add to taskLists
@@ -161,13 +171,16 @@ public class Task implements Cloneable {
 	}
 
 	/**
-	 * Sets task as complete
+	 * A method that marks Tasks complete. If the task to be completed is recurring
+	 * then the task is cloned and added to every taskLists elements. Also the Tasks
+	 * are competed by calling the of the tasks from the method
+	 * AbstractTaskList.completeTask().
 	 * 
-	 * @throws CloneNotSupportedException if clone cannot be created
+	 * @throws CloneNotSupportedException if clone cannot be created.
 	 */
 	public void completeTask() {
 		Task clone = null;
-		//check if task is recurring
+		// check if task is recurring
 		boolean isRecurring = false;
 		if (this.isRecurring()) {
 			isRecurring = true;
@@ -177,7 +190,7 @@ public class Task implements Cloneable {
 				//
 			}
 		}
-		
+
 		for (int i = 0; i < taskLists.size(); i++) {
 			for (int j = 0; j < taskLists.get(i).getTasks().size(); j++) {
 				if (this == taskLists.get(i).getTask(j)) {
@@ -192,11 +205,13 @@ public class Task implements Cloneable {
 	}
 
 	/**
-	 * Returns a copy of the Task. If there are no AbstractTaskLists registered with
-	 * the Task then a CloneNotSupportedException is thrown with the message "Cannot
-	 * clone.".
+	 * Returns a copy of the Task.
 	 * 
 	 * @return cloned object
+	 * 
+	 * @throws CloneNotSupportedException with the message "Cannot clone." if there
+	 *                                    are no AbstractTaskLists registered with
+	 *                                    the Task.
 	 */
 	public Task clone() throws CloneNotSupportedException {
 		for (int i = 0; i < taskLists.size(); i++) {
@@ -220,10 +235,10 @@ public class Task implements Cloneable {
 		throw new CloneNotSupportedException("Cannot clone.");
 	}
 
-	/** 
+	/**
 	 * Returns a string representation of the Task for printing to a file.
 	 * 
-	 * @return fields of task in string format
+	 * @return A string of the classes representation.
 	 */
 	public String toString() {
 		if (isActive() && !isRecurring()) {
@@ -236,6 +251,5 @@ public class Task implements Cloneable {
 			return "* " + getTaskName() + "\n" + getTaskDescription();
 		}
 	}
-
 
 }

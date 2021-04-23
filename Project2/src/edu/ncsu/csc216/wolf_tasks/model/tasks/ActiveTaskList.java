@@ -65,7 +65,7 @@ public class ActiveTaskList extends AbstractTaskList {
 		}
 		return taskArray;
 	}
-
+ 
 	/**
 	 * Clears the ActiveTaskList of all Tasks
 	 */

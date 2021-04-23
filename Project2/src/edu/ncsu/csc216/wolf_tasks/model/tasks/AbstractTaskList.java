@@ -4,11 +4,14 @@ import edu.ncsu.csc216.wolf_tasks.model.util.ISwapList;
 import edu.ncsu.csc216.wolf_tasks.model.util.SwapList;
 
 /**
- * Class for the list of active tasks
+ *
+ * The AbstractTaskList class is an abstract class at the top of the hierarchy
+ * for task lists of both TaskList and ActiveTaskList. The AbstractTaskList
+ * knows its taskListName, the ISwapList of Tasks, and the number of completed
+ * tasks.
  * 
  * @author Helen Solomon
  * @author Meles Meles
- *
  */
 public abstract class AbstractTaskList {
 
@@ -21,8 +24,8 @@ public abstract class AbstractTaskList {
 
 	/**
 	 * Sets the fields from the parameters and constructs a SwapList for the Tasks.
-	 * An IAE is thrown with the message �Invalid name.� if the taskListName is null
-	 * or empty string. An IAE is thrown with the message �Invalid completed count.�
+	 * An IAE is thrown with the message "Invalid name." if the taskListName is null
+	 * or empty string. An IAE is thrown with the message "Invalid completed count."
 	 * if the completedCount is less than zero.
 	 * 
 	 * @param taskListName   name of task list
@@ -33,7 +36,6 @@ public abstract class AbstractTaskList {
 		setTaskListName(taskListName);
 		setCompletedCount(completedCount);
 		tasks = new SwapList<Task>();
-
 	}
 
 	/**
@@ -58,7 +60,6 @@ public abstract class AbstractTaskList {
 		} else {
 			this.taskListName = taskListName;
 		}
-
 	}
 
 	/**
@@ -66,8 +67,9 @@ public abstract class AbstractTaskList {
 	 * 
 	 * @param count is an integer that represents completed count;
 	 * 
-	 * @throws IllegalArgumentException if the the completed count is less than
-	 *                                  zero.
+	 * @throws IllegalArgumentException with the message "Invalid completed
+	 *                                  count."if the the completed count is less
+	 *                                  than zero.
 	 */
 	private void setCompletedCount(int count) {
 		if (count < 0) {
@@ -139,16 +141,17 @@ public abstract class AbstractTaskList {
 	 * @param task task that will be set as complete.
 	 */
 	public void completeTask(Task task) {
-		for(int i = 0; i < tasks.size(); i++) {
-			if(task == tasks.get(i)) {
+		for (int i = 0; i < tasks.size(); i++) {
+			if (task == tasks.get(i)) {
 				this.tasks.remove(i);
-				completedCount++; 
+				completedCount++;
 			}
-		} 
+		}
 	}
 
 	/**
-	 * An abstract method that returns a 2D String array
+	 * An abstract method that returns a 2D String array of taskListName and
+	 * taskName.
 	 * 
 	 * @return string 2D array of tasks in list
 	 */
