@@ -9,14 +9,13 @@ package edu.ncsu.csc216.wolf_tasks.model.tasks;
  */
 public class ActiveTaskList extends AbstractTaskList {
 
-	/** name of active task list */
+	/** default name of the active task list */
 	public static final String ACTIVE_TASKS_NAME = "Active Tasks";
 
 	/**
-	 * Constructor for the active task list. it sets the name to of the Active list
-	 * to "Active Tasks" and sets the size of the list to 0. the constructor
-	 * utilizers the word super to call attention to AbstractTaskList's
-	 * constructor
+	 * Constructor for the active task list. It sets the name of the ActiveTaskList
+	 * to "Active Tasks" and sets the size of the list to 0. The constructor
+	 * utilizes the word super to call attention to AbstractTaskList's constructor.
 	 */
 	public ActiveTaskList() {
 		super(ACTIVE_TASKS_NAME, 0);
@@ -26,9 +25,10 @@ public class ActiveTaskList extends AbstractTaskList {
 	/**
 	 * Adds the given task to the active task list
 	 * 
-	 * @param task task to be added to list
+	 * @param task task that will be added to list
 	 * 
-	 * @throws IllegalArgumentException if task is not active.
+	 * @throws IllegalArgumentException if task is not active with message "Cannot
+	 *                                  add task to Active Tasks.".
 	 */
 	@Override
 	public void addTask(Task task) {
@@ -40,8 +40,12 @@ public class ActiveTaskList extends AbstractTaskList {
 	}
 
 	/**
-	 * ?????????????????????????????????????????????????????? Sets the name of the
-	 * active task list
+	 * Sets the name of the active task list
+	 * 
+	 * @param taskListName string name that is given by user
+	 * @throws IllegalArgumentException if the given name is not "Active Tasks" with
+	 *                                  message "The Active Tasks list may not be
+	 *                                  edited."
 	 */
 	@Override
 	public void setTaskListName(String taskListName) {
@@ -53,9 +57,11 @@ public class ActiveTaskList extends AbstractTaskList {
 	}
 
 	/**
-	 * Creates a 2D string array of tasks in the active task list
+	 * Creates a 2D string array of tasks in the active task list The rows will
+	 * represent each active task in notebook and the 2 columns represent their name
+	 * and their respective taskList
 	 * 
-	 * @return 2D array of tasks in list
+	 * @return a 2D array of tasks in the Active Task list
 	 */
 	public String[][] getTasksAsArray() {
 		String[][] taskArray = new String[super.getTasks().size()][2];
