@@ -211,15 +211,6 @@ public class Notebook {
 	}
 
 	/**
-	 * @throws IllegalArgumetExeption if the currentTaskList is an instance of ActiveTaskList.
-	 */
-	public void instanceHelper() {
-		if (currentTaskList instanceof ActiveTaskList) {
-			throw new IllegalArgumentException("The Active Tasks list may not be deleted.");
-		}
-	}
-
-	/**
 	 * A method that edits the currentTaskLists name.
 	 * 
 	 * @param taskListName is a string value of a taskListName
@@ -234,12 +225,12 @@ public class Notebook {
 	 */
 	public void editTaskList(String taskListName) {
 		if (taskListName == null || "".equals(taskListName)
-				|| taskListName.compareToIgnoreCase(ActiveTaskList.ACTIVE_TASKS_NAME) == 0) {
+				|| taskListName.compareToIgnoreCase(ActiveTaskList.ACTIVE_TASKS_NAME) == 0)
 			throw new IllegalArgumentException("Invalid name.");
-		}
-		if (currentTaskList instanceof ActiveTaskList) {
+
+		if (currentTaskList instanceof ActiveTaskList)
 			throw new IllegalArgumentException("The Active Tasks list may not be edited.");
-		}
+
 		isDuplicate(taskListName);
 
 		// store value of the current task list
@@ -262,7 +253,9 @@ public class Notebook {
 	 *                                  an instance of ActiveTask List
 	 */
 	public void removeTaskList() {
-		instanceHelper();
+		if (currentTaskList instanceof ActiveTaskList)
+			throw new IllegalArgumentException("The Active Tasks list may not be deleted.");
+
 		for (int i = 0; i < taskLists.size(); i++) {
 			if (currentTaskList.getTaskListName().equals(taskLists.get(i).getTaskListName())) {
 				taskLists.remove(i);
