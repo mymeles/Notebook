@@ -1,7 +1,9 @@
 package edu.ncsu.csc216.wolf_tasks.model.tasks;
 
 /**
- * Class for the list of active tasks
+ * Class that constructs the ActiveTaskList and extends AbstractTaskList.
+ * List name is always set to "Active Tasks" and has its own implementation for addTask(), getTasksAsArray(), setTaskListName().
+ * Also has a method for clearing tasks in the ActiveTask list.
  * 
  * @author Helen Solomon
  * @author Meles Meles
