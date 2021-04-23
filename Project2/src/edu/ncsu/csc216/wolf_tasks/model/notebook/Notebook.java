@@ -20,24 +20,30 @@ import edu.ncsu.csc216.wolf_tasks.model.util.SortedList;
  */
 public class Notebook {
 
-	/** A string representation of a Notebook name */
+	/** A string representation of the Notebook's name */
 	private String notebookName;
 	/** A boolean that keeps track if the notebook has been changed */
 	private boolean isChanged;
-	/** a sortedList of taskLists */
+	/** a sortedList of taskLists that are contained within the notebook */
 	private ISortedList<TaskList> taskLists;
-	/** An ActiveTaskList called activeTaskList */
+	/**
+	 * An ActiveTaskList called "Active Tasks" that holds the active tasks in
+	 * notebook
+	 */
 	private ActiveTaskList activeTaskList;
 	/** An AbstractTaskList called currentTaskList */
 	private AbstractTaskList currentTaskList;
 
 	/**
-	 * A constructor to create a notebook with a given notebook name
+	 * A Notebook constructor that allows user to set it's name. With a new
+	 * notebook, an empty SortedList of taskLists and activeTaskList is constructed.
+	 * The current task list is set to activeTaskList. The isChanged status is set
+	 * to true.
 	 * 
-	 * @param notebookname a string that holds notebook name
+	 * @param notebookname a string that holds the notebook's name
 	 */
-	public Notebook(String notebookname) {
-		setNotebookName(notebookname);
+	public Notebook(String notebookName) {
+		setNotebookName(notebookName);
 		taskLists = new SortedList<TaskList>();
 		activeTaskList = new ActiveTaskList();
 		currentTaskList = activeTaskList;
@@ -45,8 +51,9 @@ public class Notebook {
 	}
 
 	/**
-	 * A method then writes notebook to a give file location. Saves the current
-	 * Notebook to the given file and the boolean isChanged is updated to false.
+	 * A method that writes the edited notebook to a given file location. Saves the
+	 * current task lists to the given file and the boolean isChanged is updated to
+	 * false.
 	 * 
 	 * @param file a string that holds the location to save the notebook
 	 */
@@ -56,9 +63,9 @@ public class Notebook {
 	}
 
 	/**
-	 * returns the name of the current notebook.
+	 * Returns the name of the current notebook
 	 * 
-	 * @return a string
+	 * @return a string that represents the notebook's name
 	 */
 	public String getNotebookName() {
 		return notebookName;
@@ -66,9 +73,12 @@ public class Notebook {
 	}
 
 	/**
-	 * a method the sets the notebook name to the given parameter.
+	 * A method that sets the notebook name to the given parameter.
 	 * 
-	 * @param name is a string for notebook name
+	 * @param name string that represents the notebook's potential name
+	 * @throws IllegalArgumentException with the message "Invalid name." if the name
+	 *                                  given is null, empty, or equals "Active
+	 *                                  Tasks"
 	 */
 	private void setNotebookName(String name) {
 		if (name == null || "".equals(name) || name.compareToIgnoreCase(ActiveTaskList.ACTIVE_TASKS_NAME) == 0) {
@@ -79,17 +89,20 @@ public class Notebook {
 	}
 
 	/**
-	 * A method that sets the isChanged boolean to true.
+	 * A method that returns the value of the isChanged boolean for the Notebook. If
+	 * the notebook has been changed, isChanged boolean returns true. Else, returns
+	 * false.
 	 * 
-	 * @return a boolean
+	 * @return true or false
 	 */
 	public boolean isChanged() {
 		return isChanged;
 	}
 
 	/**
-	 * A method that sets isChanged to either true or false depending on the give
-	 * parameter value.
+	 * A method that monitors the status of the isChanged boolean for the Notebook.
+	 * If the notebook has been changed, isChanged boolean is set to true. Else, is
+	 * set to false.
 	 * 
 	 * @param isChanged is a boolean
 	 */
@@ -98,9 +111,13 @@ public class Notebook {
 	}
 
 	/**
-	 * A method that adds task list to the task lists updates isChanged is to true.
+	 * A method that adds the given task list to taskLists and updates isChanged to
+	 * true. Also checks that the name of the given taskList is not a duplicate.
+	 * Once added into taskLists, the list is set as the currentTaskList.
 	 * 
-	 * @param taskList is a TaskList to be added to task lists
+	 * @param taskList list of type TaskList that will be added to task lists
+	 * @throws IllegalArgumentException with message "Invalid name." if the given
+	 *                                  taskList name equals "Active Tasks"
 	 */
 	public void addTaskList(TaskList taskList) {
 		if (taskList.getTaskListName().toLowerCase().equals(ActiveTaskList.ACTIVE_TASKS_NAME.toLowerCase())) {
@@ -152,9 +169,9 @@ public class Notebook {
 	 * Maintains the active task list so that it always have active tasks
 	 */
 	private void getActiveTaskList() {
-		//clear the active task list
+		// clear the active task list
 		activeTaskList.clearTasks();
-		//go through each task list and each active task back into activeTaskList
+		// go through each task list and each active task back into activeTaskList
 		for (int i = 0; i < taskLists.size(); i++) {
 			for (int j = 0; j < taskLists.get(i).getTasks().size(); j++) {
 				if (taskLists.get(i).getTask(j).isActive()) {
@@ -205,20 +222,20 @@ public class Notebook {
 		}
 		isDuplicate(taskListName);
 
-		//store value of the current task list
+		// store value of the current task list
 		TaskList temp = (TaskList) currentTaskList;
-		//remove list from notebook
+		// remove list from notebook
 		this.removeTaskList();
-		//set the name to the one given
+		// set the name to the one given
 		temp.setTaskListName(taskListName);
-		//add back into notebook so that it is kept in sorted order
+		// add back into notebook so that it is kept in sorted order
 		this.addTaskList(temp);
 		setChanged(true);
 	}
 
 	/**
 	 * A method that removes the currentTask list and then sets to the
-	 * activeTaskList and also the boolean isChaged is updated to true. 
+	 * activeTaskList and also the boolean isChaged is updated to true.
 	 */
 	public void removeTaskList() {
 		if (currentTaskList.getTaskListName().compareToIgnoreCase(ActiveTaskList.ACTIVE_TASKS_NAME) == 0) {
@@ -248,7 +265,7 @@ public class Notebook {
 				activeTaskList.addTask(t);
 			}
 		}
-		//make sure active task list is maintained
+		// make sure active task list is maintained
 		getActiveTaskList();
 
 		setChanged(true);
@@ -284,9 +301,9 @@ public class Notebook {
 			activeTaskList.addTask(currentTaskList.getTask(idx));
 		}
 
-		//make sure active task list is maintained
+		// make sure active task list is maintained
 		getActiveTaskList();
-		
+
 		setChanged(true);
 	}
 
