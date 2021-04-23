@@ -79,7 +79,7 @@ public class ActiveTaskList extends AbstractTaskList {
 	 */
 	public void clearTasks() {
 		// store the original size so that we can reach all tasks in listS
-		int size = super.getTasks().size();
+		int size = super.getTasks().size(); 
 		for (int i = size - 1; i >= 0; i--) {
 			super.getTasks().remove(i);
 		}

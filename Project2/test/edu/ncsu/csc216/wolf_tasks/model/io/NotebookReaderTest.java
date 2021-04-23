@@ -11,6 +11,7 @@ import edu.ncsu.csc216.wolf_tasks.model.tasks.ActiveTaskList;
 
 /**
  * Test for NotebookReader class.
+ * 
  * @author Helen Solomon
  * @author Meles Meles
  */
@@ -23,7 +24,7 @@ public class NotebookReaderTest {
 	/**
 	 * valid test file
 	 */
-	public static final File VALID2 = new File("test-files/notebook0.txt"); 
+	public static final File VALID2 = new File("test-files/notebook0.txt");
 	/**
 	 * valid test file
 	 */
@@ -52,21 +53,21 @@ public class NotebookReaderTest {
 	 * invalid test file (non existent)
 	 */
 	public static final File INVALID6 = new File("test-files/notebook8.txt");
-	
+
 	/**
 	 * Test the readNodebookFile() method
 	 */
 	@Test
 	public void testReadNodebookFile() {
 		Notebook nb1;
-		//test a file that doesn't exist
+		// test a file that doesn't exist
 		try {
 			nb1 = NotebookReader.readNodebookFile(INVALID6);
 		} catch (IllegalArgumentException e) {
 			assertEquals("File not found", e.getMessage());
 		}
-		
-		//test a valid file with 3 lists
+
+		// test a valid file with 3 lists
 		nb1 = NotebookReader.readNodebookFile(VALID1);
 		assertEquals(4, nb1.getTaskListsNames().length);
 		assertEquals("Active Tasks", nb1.getTaskListsNames()[0]);
@@ -74,11 +75,10 @@ public class NotebookReaderTest {
 		assertEquals("CSC 226", nb1.getTaskListsNames()[2]);
 		assertEquals("Habits", nb1.getTaskListsNames()[3]);
 
-		
 		assertEquals("Active Tasks", nb1.getCurrentTaskList().getTaskListName());
 		assertEquals(5, nb1.getCurrentTaskList().getTasks().size());
 		assertEquals(5, nb1.getCurrentTaskList().getTasksAsArray().length);
-		
+
 		nb1.setCurrentTaskList("Habits");
 		assertEquals("Habits", nb1.getCurrentTaskList().getTaskListName());
 		assertEquals(2, nb1.getCurrentTaskList().getTasks().size());
@@ -91,66 +91,63 @@ public class NotebookReaderTest {
 		assertEquals("CSC 226", nb1.getCurrentTaskList().getTaskListName());
 		assertEquals(5, nb1.getCurrentTaskList().getTasks().size());
 
-		
 		assertEquals("School", nb1.getNotebookName());
-		
-		//test a valid file with no task lists
+
+		// test a valid file with no task lists
 		Notebook nb2 = NotebookReader.readNodebookFile(VALID2);
 		assertEquals(1, nb2.getTaskListsNames().length);
-		
+
 		assertEquals(ActiveTaskList.ACTIVE_TASKS_NAME, nb2.getCurrentTaskList().getTaskListName());
 		assertEquals("Summer Plans", nb2.getNotebookName());
-		
-		//test a valid file with 3 lists but with some elements missing (tasks)
+
+		// test a valid file with 3 lists but with some elements missing (tasks)
 		Notebook nb3 = NotebookReader.readNodebookFile(VALID3);
 		assertEquals(4, nb3.getTaskListsNames().length);
 		assertEquals("Active Tasks", nb3.getTaskListsNames()[0]);
 		assertEquals("CSC 216", nb3.getTaskListsNames()[1]);
 		assertEquals("CSC 226", nb3.getTaskListsNames()[2]);
 		assertEquals("Habits", nb3.getTaskListsNames()[3]);
-		
-		
+
 		assertEquals("Active Tasks", nb3.getCurrentTaskList().getTaskListName());
 		assertEquals(3, nb3.getCurrentTaskList().getTasks().size());
-		
+
 		nb3.setCurrentTaskList("Habits");
 		assertEquals("Habits", nb3.getCurrentTaskList().getTaskListName());
 		assertEquals("School", nb3.getNotebookName());
-		
+
 		Notebook nb5;
-		//test an invalid file, no ! at start
+		// test an invalid file, no ! at start
 		try {
 			nb5 = NotebookReader.readNodebookFile(INVALID1);
 		} catch (IllegalArgumentException e) {
 			assertEquals("Unable to load file.", e.getMessage());
 		}
-		
-		//test an invalid file, task list has no completed count
+
+		// test an invalid file, task list has no completed count
 		nb5 = NotebookReader.readNodebookFile(INVALID2);
 		assertEquals(1, nb5.getTaskListsNames().length);
 		assertEquals("Active Tasks", nb5.getTaskListsNames()[0]);
 
-		//test an invalid file, task list is missing name
+		// test an invalid file, task list is missing name
 		Notebook nb6 = NotebookReader.readNodebookFile(INVALID3);
 		assertEquals(1, nb6.getTaskListsNames().length);
 		assertEquals("Active Tasks", nb6.getTaskListsNames()[0]);
 
-		//test an invalid file, task list has negative completed tasks
+		// test an invalid file, task list has negative completed tasks
 		Notebook nb7 = NotebookReader.readNodebookFile(INVALID4);
 		assertEquals(1, nb7.getTaskListsNames().length);
 		assertEquals("Active Tasks", nb7.getTaskListsNames()[0]);
 
-		//test an invalid file, task has no name
+		// test an invalid file, task has no name
 		Notebook nb8 = NotebookReader.readNodebookFile(INVALID5);
 		assertEquals(2, nb8.getTaskListsNames().length);
 		assertEquals("Active Tasks", nb8.getTaskListsNames()[0]);
 		assertEquals("Habits", nb8.getTaskListsNames()[1]);
 
-		
 		assertEquals("Active Tasks", nb8.getCurrentTaskList().getTaskListName());
 		assertEquals(1, nb8.getCurrentTaskList().getTasks().size());
 		assertEquals(1, nb8.getCurrentTaskList().getTasksAsArray().length);
-		
+
 		nb8.setCurrentTaskList("Habits");
 		assertEquals("Habits", nb8.getCurrentTaskList().getTaskListName());
 		assertEquals(3, nb8.getCurrentTaskList().getCompletedCount());

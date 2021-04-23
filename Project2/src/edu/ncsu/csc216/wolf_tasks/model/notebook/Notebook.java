@@ -40,7 +40,7 @@ public class Notebook {
 	 * The current task list is set to activeTaskList. The isChanged status is set
 	 * to true.
 	 * 
-	 * @param notebookname a string that holds the notebook's name
+	 * @param notebookName a string that holds the notebook's name
 	 */
 	public Notebook(String notebookName) {
 		setNotebookName(notebookName);
@@ -131,20 +131,23 @@ public class Notebook {
 	}
 
 	/**
-	 * Private helper method to check duplicity
+	 * Private helper to determine if a taskList already exists in the taskLists.
 	 * 
-	 * @param name name of task list
+	 * @param taskListName is a string that represents a taskList name
+	 * 
+	 * @throws IllegalArgumentException with the message "Invalid name." if the
+	 *                                  TaskList is duplicate.
 	 */
-	private void isDuplicate(String name) {
+	private void isDuplicate(String taskListName) {
 		for (int i = 0; i < taskLists.size(); i++) {
-			if (name.equals(taskLists.get(i).getTaskListName())) {
+			if (taskListName.equals(taskLists.get(i).getTaskListName())) {
 				throw new IllegalArgumentException("Invalid name.");
 			}
 		}
 	}
 
 	/**
-	 * A method that Returns a list of task list names where the Active Tasks is
+	 * A method that Returns a list of task list names where the Active Task is
 	 * always listed first.
 	 * 
 	 * @return an array of strings
@@ -201,25 +204,40 @@ public class Notebook {
 	/**
 	 * A method that returns an abstractTaskList which is the current task list
 	 * 
-	 * @return an AbstracttaskList
+	 * @return AbstractTaskList
 	 */
 	public AbstractTaskList getCurrentTaskList() {
 		return currentTaskList;
 	}
 
 	/**
+	 * @throws IllegalArgumetExeption if the currentTaskList is an instance of ActiveTaskList.
+	 */
+	public void instanceHelper() {
+		if (currentTaskList instanceof ActiveTaskList) {
+			throw new IllegalArgumentException("The Active Tasks list may not be deleted.");
+		}
+	}
+
+	/**
 	 * A method that edits the currentTaskLists name.
 	 * 
 	 * @param taskListName is a string value of a taskListName
+	 * 
+	 * @throws IllegalArgumentException with message "Invalid name." if the task
+	 *                                  lists name is null, empty, or has the same
+	 *                                  name as "ActiveTask List".
+	 * @throws IllegalArgumentException with the message "The Active Tasks list may
+	 *                                  no be deleted" if the instance of
+	 * @throws IllegalArgumentException with the message "Invalid name." if the
+	 *                                  TaskList is duplicate.
 	 */
 	public void editTaskList(String taskListName) {
 		if (taskListName == null || "".equals(taskListName)
 				|| taskListName.compareToIgnoreCase(ActiveTaskList.ACTIVE_TASKS_NAME) == 0) {
 			throw new IllegalArgumentException("Invalid name.");
 		}
-		if (currentTaskList.getTaskListName().compareToIgnoreCase(ActiveTaskList.ACTIVE_TASKS_NAME) == 0) {
-			throw new IllegalArgumentException("The Active Tasks list may not be edited.");
-		}
+		instanceHelper();
 		isDuplicate(taskListName);
 
 		// store value of the current task list
@@ -236,12 +254,13 @@ public class Notebook {
 	/**
 	 * A method that removes the currentTask list and then sets to the
 	 * activeTaskList and also the boolean isChaged is updated to true.
+	 * 
+	 * @throws IllegalArgumentException with the message "The Active Tasks list may
+	 *                                  not be deleted." if the currenttaskList is
+	 *                                  an instance of ActiveTask List
 	 */
 	public void removeTaskList() {
-		if (currentTaskList.getTaskListName().compareToIgnoreCase(ActiveTaskList.ACTIVE_TASKS_NAME) == 0) {
-			throw new IllegalArgumentException("The Active Tasks list may not be deleted.");
-		}
-
+		instanceHelper();
 		for (int i = 0; i < taskLists.size(); i++) {
 			if (currentTaskList.getTaskListName().equals(taskLists.get(i).getTaskListName())) {
 				taskLists.remove(i);
@@ -252,7 +271,9 @@ public class Notebook {
 	}
 
 	/**
-	 * A method that adds a task to the taskList
+	 * A method that adds a given task in the currentTask list. If the
+	 * currentTaskList is not an instance of TaskList then the methods is
+	 * exited.after the task is added isChanged is set to true.
 	 * 
 	 * @param t is a Task
 	 */
@@ -272,7 +293,9 @@ public class Notebook {
 	}
 
 	/**
-	 * A method that edits a given task in the currentTask list.
+	 * A method that edits a given task in the currentTask list. If the
+	 * currentTaskList is not an instance of TaskList then the methods is exited.
+	 * after the task is edited isChanged is set to true.
 	 * 
 	 * @param idx             is an integer that represents the index of a task
 	 * @param taskName        is a string that represents the name of a task
